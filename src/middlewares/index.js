@@ -1,8 +1,3 @@
-/**
- * Interceptadores diversos.
- *
- * @author Dev Gui
- */
 const { PREFIX, OWNER_NUMBER, OWNER_LID } = require("../config");
 const { compareUserJidWithOtherNumber } = require("../utils");
 

@@ -4,12 +4,13 @@ const { errorLog } = require(`${BASE_DIR}/utils/logger`);
 const { PREFIX, ASSETS_DIR } = require(`${BASE_DIR}/config`);
 const { InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { getProfileImageData } = require(`${BASE_DIR}/services/baileys`);
+const fs = require("node:fs"); // Necesario para eliminar archivos temporales
 
 module.exports = {
   name: "perfil",
-  description: "Mostra informações de um usuário",
+  description: "Muestra información de un usuario.",
   commands: ["perfil", "profile"],
-  usage: `${PREFIX}perfil ou perfil @usuario`,
+  usage: `${PREFIX}perfil o ${PREFIX}perfil @usuario`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -22,10 +23,11 @@ module.exports = {
     sendErrorReply,
     sendWaitReply,
     sendSuccessReact,
+    sendImageFromFile, // Usar esta función para enviar imágenes desde un archivo local
   }) => {
     if (!isGroup(remoteJid)) {
       throw new InvalidParameterError(
-        "Este comando só pode ser usado em grupo."
+        "Este comando solo puede ser usado en grupo."
       );
     }
 
@@ -33,28 +35,23 @@ module.exports = {
       ? args[0].replace(/[@ ]/g, "") + "@s.whatsapp.net"
       : userJid;
 
-    await sendWaitReply("Carregando perfil...");
+    await sendWaitReply("Cargando perfil...");
+
+    let profilePicPath = null; // Para almacenar la ruta temporal de la imagen de perfil
 
     try {
-      let profilePicUrl;
       let userName;
-      let userRole = "Membro";
+      let userRole = "Miembro";
+
+      const { profileImage, success } = await getProfileImageData(socket, targetJid);
+      profilePicPath = profileImage; // Guarda la ruta temporal o la ruta de la imagen por defecto
 
       try {
-        const { profileImage } = await getProfileImageData(socket, targetJid);
-        profilePicUrl = profileImage || `${ASSETS_DIR}/images/default-user.png`;
-
         const contactInfo = await socket.onWhatsApp(targetJid);
-        userName = contactInfo[0]?.name || "Usuário Desconhecido";
+        userName = contactInfo[0]?.name || contactInfo[0]?.verifiedName || targetJid.split("@")[0];
       } catch (error) {
-        errorLog(
-          `Erro ao tentar pegar dados do usuário ${targetJid}: ${JSON.stringify(
-            error,
-            null,
-            2
-          )}`
-        );
-        profilePicUrl = `${ASSETS_DIR}/images/default-user.png`;
+        errorLog(`Error al obtener nombre de usuario para ${targetJid}: ${error.message}`);
+        userName = targetJid.split("@")[0]; // Fallback a JID si no se puede obtener el nombre
       }
 
       const groupMetadata = await socket.groupMetadata(remoteJid);
@@ -65,33 +62,50 @@ module.exports = {
 
       if (participant?.admin) {
         userRole = "Administrador";
+      } else if (groupMetadata.owner === targetJid) {
+        userRole = "Propietario del Grupo";
       }
 
-      const randomPercent = Math.floor(Math.random() * 100);
-      const programPrice = (Math.random() * 5000 + 1000).toFixed(2);
-      const beautyLevel = Math.floor(Math.random() * 100) + 1;
+      // Generar datos "inventados"
+      const latitude = (Math.random() * 180 - 90).toFixed(6); // -90 a +90
+      const longitude = (Math.random() * 360 - 180).toFixed(6); // -180 a +180
+      const connectionSpeed = (Math.random() * (1000 - 10) + 10).toFixed(2); // 10 a 1000 Mbps
+      const pingLatency = (Math.random() * (150 - 10) + 10).toFixed(0); // 10 a 150 ms
+      const securityScore = (Math.random() * (100 - 60) + 60).toFixed(0); // 60 a 100
+      const deviceType = Math.random() > 0.5 ? "Móvil" : "Escritorio";
+      const ipAddress = `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
 
-      const mensagem = `
-👤 *Nome:* @${targetJid.split("@")[0]}
-🎖️ *Cargo:* ${userRole}
 
-🌚 *Programa:* R$ ${programPrice}
-🐮 *Gado:* ${randomPercent + 7 || 5}%
-🎱 *Passiva:* ${randomPercent + 5 || 10}%
-✨ *Beleza:* ${beautyLevel}%`;
+      const mensaje = `
+Usuario de XTIALISMO: ${userName}
+JID: ${targetJid}
+Rol: ${userRole}
+
+--- SE REBELA ANTE TODOS ---
+Latitud: ${latitude}
+Longitud: ${longitude}
+Velocidad de Conexión: ${connectionSpeed} Mbps
+Latencia de Ping: ${pingLatency} ms
+Puntuación de Seguridad: ${securityScore}/100
+Tipo de Dispositivo: ${deviceType}
+Dirección IP: ${ipAddress}
+`;
 
       const mentions = [targetJid];
 
-      await sendSuccessReact();
+      await sendSuccessReact(); // Mantener el react visualmente, pero se puede quitar si se desea un output completamente sin emojis.
 
-      await socket.sendMessage(remoteJid, {
-        image: { url: profilePicUrl },
-        caption: mensagem,
-        mentions: mentions,
-      });
+      // Usar sendImageFromFile para enviar la imagen desde la ruta local
+      await sendImageFromFile(profilePicPath, mensaje, mentions);
+
     } catch (error) {
       console.error(error);
-      sendErrorReply("Ocorreu um erro ao tentar verificar o perfil.");
+      sendErrorReply("Ocurrió un error al intentar verificar el perfil.");
+    } finally {
+      // Limpiar el archivo de imagen temporal si no es la imagen por defecto
+      if (profilePicPath && !profilePicPath.includes("default-user.png") && fs.existsSync(profilePicPath)) {
+        fs.unlinkSync(profilePicPath);
+      }
     }
   },
 };

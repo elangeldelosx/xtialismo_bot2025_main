@@ -4,27 +4,23 @@ const {
 
 const { isActiveGroupRestriction } = require(`${BASE_DIR}/utils/database`);
 
-const { WarningError } = require(`${BASE_DIR}/errors`);
+const { WarningError, InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { PREFIX } = require(`${BASE_DIR}/config`);
 
 module.exports = {
   name: "anti-audio",
   description:
-    "Ativa/desativa o recurso de anti-audio no grupo, apagando a mensagem de áudio se estiver ativo.",
+    "Activa/desactiva la función de anti-audio en XTIALISMO, eliminando el mensaje de audio si está activo.",
   commands: ["anti-audio", "anti-audios"],
   usage: `${PREFIX}anti-audio (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando só deve ser usado em grupos!");
+      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
     }
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -33,7 +29,7 @@ module.exports = {
 
     if (!antiAudioOn && !antiAudioOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -45,16 +41,16 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `O recurso de anti-audio já está ${
-          antiAudioOn ? "ativado" : "desativado"
-        }!`
+        `La función de anti-audio ya está ${
+          antiAudioOn ? "activa" : "desactivada"
+        }.`
       );
     }
 
     updateIsActiveGroupRestriction(remoteJid, "anti-audio", antiAudioOn);
 
-    const status = antiAudioOn ? "ativado" : "desativado";
+    const status = antiAudioOn ? "activa" : "desactivada";
 
-    await sendSuccessReply(`Anti-audio ${status} com sucesso!`);
+    await sendSuccessReply(`Anti-audio ${status}.`);
   },
 };

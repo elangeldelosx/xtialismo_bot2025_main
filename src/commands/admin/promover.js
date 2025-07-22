@@ -1,10 +1,11 @@
 const { PREFIX } = require(`${BASE_DIR}/config`);
 const { isGroup } = require(`${BASE_DIR}/utils`);
 const { errorLog } = require(`${BASE_DIR}/utils/logger`);
+const { InvalidParameterError, WarningError, DangerError } = require(`${BASE_DIR}/errors`); // Asegurarse de importar los errores necesarios
 
 module.exports = {
   name: "promover",
-  description: "Promove um usuário a administrador do grupo",
+  description: "Promueve a un usuario a administrador de XTIALISMO.",
   commands: ["promover", "promove", "promote", "add-adm"],
   usage: `${PREFIX}promover @usuario`,
   /**
@@ -18,24 +19,25 @@ module.exports = {
     sendWarningReply,
     sendSuccessReply,
     sendErrorReply,
+    isGroup // Asegurarse de que isGroup esté disponible en props
   }) => {
     if (!isGroup(remoteJid)) {
-      return sendWarningReply("Este comando só pode ser usado em grupo !");
+      throw new WarningError("Este comando solo puede ser utilizado en XTIALISMO.");
     }
 
     if (!args.length || !args[0]) {
-      return sendWarningReply("Por favor, marque um usuário para promover.");
+      throw new InvalidParameterError("Por favor, marque un usuario para promover.");
     }
 
     const userId = args[0].replace("@", "") + "@s.whatsapp.net";
 
     try {
       await socket.groupParticipantsUpdate(remoteJid, [userId], "promote");
-      await sendSuccessReply("Usuário promovido com sucesso!");
+      await sendSuccessReply("Usuario promovido.");
     } catch (error) {
-      errorLog(`Erro ao promover usuário: ${error.message}`);
+      errorLog(`Error al promover usuario: ${error.message}`);
       await sendErrorReply(
-        "Ocorreu um erro ao tentar promover o usuário. Eu preciso ser administrador do grupo para promover outros usuários!"
+        "Ocurrió un error al intentar promover al usuario. Se requiere ser administrador de XTIALISMO para promover a otros usuarios."
       );
     }
   },

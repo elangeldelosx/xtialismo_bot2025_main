@@ -1,9 +1,3 @@
-/**
- * Desenvolvido por: Mkg
- * Refatorado por: Dev Gui
- *
- * @author Dev Gui
- */
 const { toUserJid, onlyNumbers } = require(`${BASE_DIR}/utils`);
 const {
   checkIfMemberIsMuted,
@@ -21,9 +15,9 @@ const { DangerError } = require(`${BASE_DIR}/errors`);
 module.exports = {
   name: "mute",
   description:
-    "Silencia um usuário no grupo (apaga as mensagens do usuário automáticamente).",
+    "Silencia a un usuario en XTIALISMO (elimina automáticamente los mensajes del usuario).",
   commands: ["mute", "mutar"],
-  usage: `${PREFIX}mute @usuario ou (responda à mensagem do usuário que deseja mutar)`,
+  usage: `${PREFIX}mute @usuario o (responda al mensaje del usuario que desea silenciar)`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -41,12 +35,12 @@ module.exports = {
     isGroup,
   }) => {
     if (!isGroup) {
-      throw new DangerError("Este comando só pode ser usado em grupos.");
+      throw new DangerError("Este comando solo puede ser utilizado en XTIALISMO.");
     }
 
     if (!args.length && !replyJid) {
       throw new DangerError(
-        `Você precisa mencionar um usuário ou responder à mensagem do usuário que deseja mutar.\n\nExemplo: ${PREFIX}mute @fulano`
+        `Se requiere mencionar a un usuario o responder al mensaje del usuario que se desea silenciar.\n\nEjemplo: ${PREFIX}mute @fulano`
       );
     }
 
@@ -57,7 +51,7 @@ module.exports = {
       : onlyNumbers(replyJid);
 
     if ([OWNER_NUMBER, OWNER_LID].includes(targetUserNumber)) {
-      throw new DangerError("Você não pode mutar o dono do bot!");
+      throw new DangerError("No es posible silenciar al propietario de XTIALISMO.");
     }
 
     const targetUserJid = isGroupWithLid
@@ -65,7 +59,7 @@ module.exports = {
       : toUserJid(targetUserNumber);
 
     if (targetUserJid === toUserJid(BOT_NUMBER)) {
-      throw new DangerError("Você não pode mutar o bot.");
+      throw new DangerError("No es posible silenciar al bot.");
     }
 
     const [result] =
@@ -74,7 +68,7 @@ module.exports = {
         : await socket.onWhatsApp(targetUserNumber);
 
     if (result.jid === userJid) {
-      throw new DangerError("Você não pode mutar a si mesmo!");
+      throw new DangerError("No es posible silenciar a sí mismo.");
     }
 
     const groupMetadata = await getGroupMetadata();
@@ -85,7 +79,7 @@ module.exports = {
 
     if (!isUserInGroup) {
       return sendErrorReply(
-        `O usuário @${targetUserNumber} não está neste grupo.`,
+        `El usuario @${targetUserNumber} no se encuentra en XTIALISMO.`,
         [targetUserJid]
       );
     }
@@ -95,12 +89,12 @@ module.exports = {
     );
 
     if (isTargetAdmin) {
-      throw new DangerError("Você não pode mutar um administrador.");
+      throw new DangerError("No es posible silenciar a un administrador.");
     }
 
     if (checkIfMemberIsMuted(remoteJid, targetUserJid)) {
       return sendErrorReply(
-        `O usuário @${targetUserNumber} já está silenciado neste grupo.`,
+        `El usuario @${targetUserNumber} ya se encuentra silenciado en XTIALISMO.`,
         [targetUserJid]
       );
     }
@@ -108,7 +102,7 @@ module.exports = {
     muteMember(remoteJid, targetUserJid);
 
     await sendSuccessReply(
-      `@${targetUserNumber} foi mutado com sucesso neste grupo!`,
+      `@${targetUserNumber} ha sido silenciado en XTIALISMO.`,
       [targetUserJid]
     );
   },

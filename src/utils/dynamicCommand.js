@@ -1,9 +1,3 @@
-/**
- * Direcionador
- * de comandos.
- *
- * @author Dev Gui
- */
 const {
   DangerError,
   WarningError,
@@ -53,7 +47,7 @@ exports.dynamicCommand = async (paramsHandler, startProcess) => {
       await socket.groupParticipantsUpdate(remoteJid, [userJid], "remove");
 
       await sendReply(
-        "Anti-link ativado! Você foi removido por enviar um link!"
+        "¡Anti-enlace activado! ¡Has sido eliminado por enviar un enlace!"
       );
 
       await socket.sendMessage(remoteJid, {
@@ -90,7 +84,7 @@ exports.dynamicCommand = async (paramsHandler, startProcess) => {
 
     if (!(await checkPermission({ type, ...paramsHandler }))) {
       await sendErrorReply(
-        "Você não tem permissão para executar este comando!"
+        "¡No tienes permiso para ejecutar este comando!"
       );
       return;
     }
@@ -100,7 +94,7 @@ exports.dynamicCommand = async (paramsHandler, startProcess) => {
       !(await isAdmin({ remoteJid, userJid, socket }))
     ) {
       await sendWarningReply(
-        "Somente administradores podem executar comandos!"
+        "¡Solo los administradores pueden ejecutar comandos!"
       );
       return;
     }
@@ -110,14 +104,14 @@ exports.dynamicCommand = async (paramsHandler, startProcess) => {
     if (verifyPrefix(prefix) && hasTypeAndCommand({ type, command })) {
       if (command.name !== "on") {
         await sendWarningReply(
-          "Este grupo está desativado! Peça para o dono do grupo ativar o bot!"
+          "¡Este grupo está desactivado! ¡Pide al dueño del grupo que active el bot!"
         );
         return;
       }
 
       if (!(await checkPermission({ type, ...paramsHandler }))) {
         await sendErrorReply(
-          "Você não tem permissão para executar este comando!"
+          "¡No tienes permiso para ejecutar este comando!"
         );
         return;
       }
@@ -135,46 +129,46 @@ exports.dynamicCommand = async (paramsHandler, startProcess) => {
   } catch (error) {
     if (badMacHandler.handleError(error, `command:${command?.name}`)) {
       await sendWarningReply(
-        "Erro temporário de sincronização. Tente novamente em alguns segundos."
+        "Error temporal de sincronización. Intenta de nuevo en unos segundos."
       );
       return;
     }
 
     if (badMacHandler.isSessionError(error)) {
       errorLog(
-        `Erro de sessão durante execução de comando ${command?.name}: ${error.message}`
+        `Error de sesión durante la ejecución del comando ${command?.name}: ${error.message}`
       );
       await sendWarningReply(
-        "Erro de comunicação. Tente executar o comando novamente."
+        "Error de comunicación. Intenta ejecutar el comando de nuevo."
       );
       return;
     }
 
     if (error instanceof InvalidParameterError) {
-      await sendWarningReply(`Parâmetros inválidos! ${error.message}`);
+      await sendWarningReply(`¡Parámetros inválidos! ${error.message}`);
     } else if (error instanceof WarningError) {
       await sendWarningReply(error.message);
     } else if (error instanceof DangerError) {
       await sendErrorReply(error.message);
     } else if (error.isAxiosError) {
       const messageText = error.response?.data?.message || error.message;
-      const url = error.config?.url || "URL não disponível";
+      const url = error.config?.url || "URL no disponible";
 
       const isSpiderAPIError = url.includes("api.spiderx.com.br");
 
       await sendErrorReply(
-        `Ocorreu um erro ao executar uma chamada remota para ${
-          isSpiderAPIError ? "a Spider X API" : url
-        } no comando ${command.name}!
-      
-📄 *Detalhes*: ${messageText}`
+        `Ocurrió un error al ejecutar una llamada remota a ${
+          isSpiderAPIError ? "la API de Spider X" : url
+        } en el comando ${command.name}!
+        
+📄 *Detalles*: ${messageText}`
       );
     } else {
-      errorLog("Erro ao executar comando", error);
+      errorLog("Error al ejecutar comando", error);
       await sendErrorReply(
-        `Ocorreu um erro ao executar o comando ${command.name}!
-      
-📄 *Detalhes*: ${error.message}`
+        `¡Ocurrió un error al ejecutar el comando ${command.name}!
+        
+📄 *Detalles*: ${error.message}`
       );
     }
   }

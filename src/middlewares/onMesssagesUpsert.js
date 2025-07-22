@@ -1,9 +1,3 @@
-/**
- * Evento chamado quando uma mensagem
- * é enviada para o grupo do WhatsApp
- *
- * @author Dev Gui
- */
 const {
   isAtLeastMinutesInPast,
   GROUP_PARTICIPANT_ADD,
@@ -27,7 +21,7 @@ exports.onMessagesUpsert = async ({ socket, messages, startProcess }) => {
   for (const webMessage of messages) {
     if (DEVELOPER_MODE) {
       infoLog(
-        `\n\n⪨========== [ MENSAGEM RECEBIDA ] ==========⪩ \n\n${JSON.stringify(
+        `\n\n⪨========== [ MENSAJE RECIBIDO ] ==========⪩ \n\n${JSON.stringify(
           messages,
           null,
           2
@@ -77,7 +71,7 @@ exports.onMessagesUpsert = async ({ socket, messages, startProcess }) => {
             await commonFunctions.deleteMessage(webMessage.key);
           } catch (error) {
             errorLog(
-              `Erro ao deletar mensagem de membro silenciado, provavelmente o bot não é administrador do grupo! ${error.message}`
+              `Error al eliminar mensaje de miembro silenciado, ¡probablemente el bot no es administrador del grupo! ${error.message}`
             );
           }
 
@@ -92,11 +86,11 @@ exports.onMessagesUpsert = async ({ socket, messages, startProcess }) => {
       }
 
       if (badMacHandler.isSessionError(error)) {
-        errorLog(`Erro de sessão ao processar mensagem: ${error.message}`);
+        errorLog(`Error de sesión al procesar mensaje: ${error.message}`);
         continue;
       }
 
-      errorLog(`Erro ao processar mensagem: ${error.message}`);
+      errorLog(`Error al procesar mensaje: ${error.message}`);
 
       continue;
     }

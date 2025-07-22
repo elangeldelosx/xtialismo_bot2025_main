@@ -1,9 +1,3 @@
-/**
- * Evento chamado quando um usuário
- * entra ou sai de um grupo de WhatsApp.
- *
- * @author Dev Gui
- */
 const fs = require("node:fs");
 const { getProfileImageData } = require("../services/baileys");
 const { onlyNumbers, getRandomNumber } = require("../utils");
@@ -63,13 +57,13 @@ exports.onGroupParticipantsUpdate = async ({
 
           if (!link) {
             throw new Error(
-              "Não consegui fazer o upload da imagem, tente novamente mais tarde!"
+              "¡No pude subir la imagen, intenta de nuevo más tarde!"
             );
           }
 
           const url = welcome(
             "participante",
-            "Você é o mais novo membro do grupo!",
+            "¡Eres el miembro más nuevo del grupo!",
             link
           );
 
@@ -79,7 +73,7 @@ exports.onGroupParticipantsUpdate = async ({
             mentions,
           });
         } catch (error) {
-          console.error("Erro ao fazer upload da imagem:", error);
+          console.error("Error al subir la imagen:", error);
           await socket.sendMessage(remoteJid, {
             image: buffer,
             caption: finalWelcomeMessage,
@@ -125,11 +119,11 @@ exports.onGroupParticipantsUpdate = async ({
 
           if (!link) {
             throw new Error(
-              "Não consegui fazer o upload da imagem, tente novamente mais tarde!"
+              "¡No pude subir la imagen, intenta de nuevo más tarde!"
             );
           }
 
-          const url = exit("membro", "Você foi um bom membro", link);
+          const url = exit("miembro", "Fuiste un buen miembro", link);
 
           await socket.sendMessage(remoteJid, {
             image: { url },
@@ -137,7 +131,7 @@ exports.onGroupParticipantsUpdate = async ({
             mentions,
           });
         } catch (error) {
-          console.error("Erro ao fazer upload da imagem:", error);
+          console.error("Error al subir la imagen:", error);
           await socket.sendMessage(remoteJid, {
             image: buffer,
             caption: finalExitMessage,
@@ -157,7 +151,7 @@ exports.onGroupParticipantsUpdate = async ({
       }
     }
   } catch (error) {
-    console.error("Erro ao processar evento onGroupParticipantsUpdate:", error);
+    console.error("Error al procesar evento onGroupParticipantsUpdate:", error);
     process.exit(1);
   }
 };

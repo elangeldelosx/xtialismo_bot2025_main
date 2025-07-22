@@ -1,19 +1,3 @@
-/**
- * Script de
- * inicialização do bot.
- *
- * Este script é
- * responsável por
- * iniciar a conexão
- * com o WhatsApp.
- *
- * Não é recomendado alterar
- * este arquivo,
- * a menos que você saiba
- * o que está fazendo.
- *
- * @author Dev Gui
- */
 const path = require("node:path");
 const { question, onlyNumbers } = require("./utils");
 const {
@@ -81,15 +65,15 @@ async function connect() {
   });
 
   if (!socket.authState.creds.registered) {
-    warningLog("Credenciais ainda não configuradas!");
+    warningLog("¡Credenciales aún no configuradas!");
 
-    infoLog('Informe o número de telefone do bot (exemplo: "5511920202020"):');
+    infoLog('Informe el número de teléfono del bot (ejemplo: "5511920202020"):');
 
-    const phoneNumber = await question("Informe o número de telefone do bot: ");
+    const phoneNumber = await question("Informe el número de teléfono del bot: ");
 
     if (!phoneNumber) {
       errorLog(
-        'Número de telefone inválido! Tente novamente com o comando "npm start".'
+        '¡Número de teléfono inválido! Intente nuevamente con el comando "npm start".'
       );
 
       process.exit(1);
@@ -97,7 +81,7 @@ async function connect() {
 
     const code = await socket.requestPairingCode(onlyNumbers(phoneNumber));
 
-    sayLog(`Código de pareamento: ${code}`);
+    sayLog(`Código de emparejamiento: ${code}`);
   }
 
   socket.ev.on("connection.update", async (update) => {
@@ -111,12 +95,12 @@ async function connect() {
         error?.message?.includes("Bad MAC") ||
         error?.toString()?.includes("Bad MAC")
       ) {
-        errorLog("Bad MAC error na desconexão detectado");
+        errorLog("Error de Bad MAC en la desconexión detectado");
 
         if (badMacHandler.handleError(error, "connection.update")) {
           if (badMacHandler.hasReachedLimit()) {
             warningLog(
-              "Limite de erros Bad MAC atingido. Limpando arquivos de sessão problemáticos..."
+              "Límite de errores de Bad MAC alcanzado. Limpiando archivos de sesión problemáticos..."
             );
             badMacHandler.clearProblematicSessionFiles();
             badMacHandler.resetErrorCount();
@@ -129,18 +113,18 @@ async function connect() {
       }
 
       if (statusCode === DisconnectReason.loggedOut) {
-        errorLog("Bot desconectado!");
+        errorLog("¡Bot desconectado!");
         badMacErrorCount = 0;
       } else {
         switch (statusCode) {
           case DisconnectReason.badSession:
-            warningLog("Sessão inválida!");
+            warningLog("¡Sesión inválida!");
 
             const sessionError = new Error("Bad session detected");
             if (badMacHandler.handleError(sessionError, "badSession")) {
               if (badMacHandler.hasReachedLimit()) {
                 warningLog(
-                  "Limite de erros de sessão atingido. Limpando arquivos de sessão..."
+                  "Límite de errores de sesión alcanzado. Limpiando archivos de sesión..."
                 );
                 badMacHandler.clearProblematicSessionFiles();
                 badMacHandler.resetErrorCount();
@@ -148,25 +132,25 @@ async function connect() {
             }
             break;
           case DisconnectReason.connectionClosed:
-            warningLog("Conexão fechada!");
+            warningLog("¡Conexión cerrada!");
             break;
           case DisconnectReason.connectionLost:
-            warningLog("Conexão perdida!");
+            warningLog("¡Conexión perdida!");
             break;
           case DisconnectReason.connectionReplaced:
-            warningLog("Conexão substituída!");
+            warningLog("¡Conexión reemplazada!");
             break;
           case DisconnectReason.multideviceMismatch:
-            warningLog("Dispositivo incompatível!");
+            warningLog("¡Dispositivo incompatible!");
             break;
           case DisconnectReason.forbidden:
-            warningLog("Conexão proibida!");
+            warningLog("¡Conexión prohibida!");
             break;
           case DisconnectReason.restartRequired:
-            infoLog('Me reinicie por favor! Digite "npm start".');
+            infoLog('¡Por favor, reiníciame! Escribe "npm start".');
             break;
           case DisconnectReason.unavailableService:
-            warningLog("Serviço indisponível!");
+            warningLog("¡Servicio no disponible!");
             break;
         }
 
@@ -174,11 +158,11 @@ async function connect() {
         load(newSocket);
       }
     } else if (connection === "open") {
-      successLog("Fui conectado com sucesso!");
+      successLog("¡Fui conectado con éxito!");
       badMacErrorCount = 0;
       badMacHandler.resetErrorCount();
     } else {
-      infoLog("Atualizando conexão...");
+      infoLog("Actualizando conexión...");
     }
   });
 

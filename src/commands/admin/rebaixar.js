@@ -1,10 +1,11 @@
 const { PREFIX } = require(`${BASE_DIR}/config`);
 const { isGroup } = require(`${BASE_DIR}/utils`);
 const { errorLog } = require(`${BASE_DIR}/utils/logger`);
+const { InvalidParameterError, WarningError } = require(`${BASE_DIR}/errors`); // Asegurarse de importar los errores necesarios
 
 module.exports = {
   name: "rebaixar",
-  description: "Rebaixa um administrador para membro comum",
+  description: "Rebaja a un administrador a miembro común de XTIALISMO.",
   commands: ["rebaixar", "rebaixa", "demote"],
   usage: `${PREFIX}rebaixar @usuario`,
   /**
@@ -18,26 +19,25 @@ module.exports = {
     sendWarningReply,
     sendSuccessReply,
     sendErrorReply,
+    isGroup // Asegurarse de que isGroup esté disponible en props
   }) => {
     if (!isGroup(remoteJid)) {
-      return sendWarningReply("Este comando só pode ser usado em grupo !");
+      throw new WarningError("Este comando solo puede ser utilizado en XTIALISMO.");
     }
 
     if (!args.length || !args[0]) {
-      return sendWarningReply(
-        "Por favor, marque um administrador para rebaixar."
-      );
+      throw new InvalidParameterError("Por favor, marque un administrador para rebajar.");
     }
 
     const userId = args[0].replace("@", "") + "@s.whatsapp.net";
 
     try {
       await socket.groupParticipantsUpdate(remoteJid, [userId], "demote");
-      await sendSuccessReply("Usuário rebaixado com sucesso!");
+      await sendSuccessReply("Usuario rebajado.");
     } catch (error) {
-      errorLog(`Erro ao rebaixar administrador: ${error.message}`);
+      errorLog(`Error al rebajar administrador: ${error.message}`);
       await sendErrorReply(
-        "Ocorreu um erro ao tentar rebaixar o usuário. Eu preciso ser administrador do grupo para rebaixar outros administradores!"
+        "Ocurrió un error al intentar rebajar al usuario. Se requiere ser administrador de XTIALISMO para rebajar a otros administradores."
       );
     }
   },

@@ -3,32 +3,28 @@ const { errorLog } = require(`${BASE_DIR}/utils/logger`);
 
 module.exports = {
   name: "abrir",
-  description: "Abre o grupo.",
+  description: "Abre XTIALISMO.",
   commands: [
     "abrir",
     "abri",
     "abre",
-    "abrir-grupo",
-    "abri-grupo",
-    "abre-grupo",
+    "abrir-xtialismo",
+    "abri-xtialismo",
+    "abre-xtialismo",
     "open",
-    "open-group",
+    "open-xtialismo",
   ],
   usage: `${PREFIX}abrir`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
   handle: async ({ socket, remoteJid, sendSuccessReply, sendErrorReply }) => {
     try {
       await socket.groupSettingUpdate(remoteJid, "not_announcement");
-      await sendSuccessReply("Grupo aberto com sucesso!");
+      await sendSuccessReply("XTIALISMO abierto.");
     } catch (error) {
       await sendErrorReply(
-        "Para abrir o grupo, eu preciso ser administrador dele!"
+        "Para abrir XTIALISMO, necesito ser administrador de este XTIALISMO."
       );
       errorLog(
-        `Ocorreu um erro ao abrir o grupo! Causa: ${JSON.stringify(
+        `Error al abrir XTIALISMO. Causa: ${JSON.stringify(
           error,
           null,
           2

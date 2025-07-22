@@ -8,7 +8,7 @@ const {
 
 module.exports = {
   name: "welcome",
-  description: "Ativo/desativo o recurso de boas-vindas no grupo.",
+  description: "Activa/desactiva la función de bienvenida en XTIALISMO.",
   commands: [
     "welcome",
     "bemvindo",
@@ -24,34 +24,38 @@ module.exports = {
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
    */
-  handle: async ({ args, sendReply, sendSuccessReact, remoteJid }) => {
+  handle: async ({ args, sendReply, sendSuccessReact, remoteJid, isGroup }) => {
+    if (!isGroup) {
+      throw new WarningError("Este comando solo puede ser utilizado en XTIALISMO.");
+    }
+
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Se requiere ingresar 1 o 0 (activar o desactivar)."
       );
     }
 
-    const welcome = args[0] == "1";
-    const notWelcome = args[0] == "0";
+    const welcomeOn = args[0] == "1";
+    const welcomeOff = args[0] == "0";
 
-    if (!welcome && !notWelcome) {
+    if (!welcomeOn && !welcomeOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Se requiere ingresar 1 o 0 (activar o desactivar)."
       );
     }
 
-    const hasActive = welcome && isActiveWelcomeGroup(remoteJid);
-    const hasInactive = notWelcome && !isActiveWelcomeGroup(remoteJid);
+    const hasActive = welcomeOn && isActiveWelcomeGroup(remoteJid);
+    const hasInactive = welcomeOff && !isActiveWelcomeGroup(remoteJid);
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `O recurso de boas-vindas já está ${
-          welcome ? "ativado" : "desativado"
-        }!`
+        `La función de bienvenida ya se encuentra ${
+          welcomeOn ? "activa" : "desactivada"
+        }.`
       );
     }
 
-    if (welcome) {
+    if (welcomeOn) {
       activateWelcomeGroup(remoteJid);
     } else {
       deactivateWelcomeGroup(remoteJid);
@@ -59,8 +63,8 @@ module.exports = {
 
     await sendSuccessReact();
 
-    const context = welcome ? "ativado" : "desativado";
+    const context = welcomeOn ? "activa" : "desactivada";
 
-    await sendReply(`Recurso de boas-vindas ${context} com sucesso!`);
+    await sendReply(`Función de bienvenida ${context}.`);
   },
 };

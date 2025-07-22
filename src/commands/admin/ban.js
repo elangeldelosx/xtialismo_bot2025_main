@@ -1,18 +1,17 @@
-const { OWNER_NUMBER } = require("../../config");
-
-const { PREFIX, BOT_NUMBER } = require(`${BASE_DIR}/config`);
+const { OWNER_NUMBER, BOT_NUMBER } = require("../../config");
+const { PREFIX } = require(`${BASE_DIR}/config`);
 const { DangerError, InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { toUserJid, onlyNumbers } = require(`${BASE_DIR}/utils`);
 
 module.exports = {
   name: "ban",
-  description: "Removo um membro do grupo",
+  description: "Remueve a un miembro de XTIALISMO.",
   commands: ["ban", "kick"],
-  usage: `${PREFIX}ban @marcar_membro 
-  
-ou 
+  usage: `${PREFIX}ban @marcar_miembro 
+ 
+o 
 
-${PREFIX}ban (mencionando uma mensagem)`,
+${PREFIX}ban (mencionando un mensaje)`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -26,10 +25,15 @@ ${PREFIX}ban (mencionando uma mensagem)`,
     sendReply,
     userJid,
     sendSuccessReact,
+    isGroup, // Asegúrate de que isGroup esté disponible en props
   }) => {
+    if (!isGroup) {
+      throw new InvalidParameterError("Este comando solo debe ser utilizado en XTIALISMO.");
+    }
+
     if (!args.length && !isReply) {
       throw new InvalidParameterError(
-        "Você precisa mencionar ou marcar um membro!"
+        "Se requiere mencionar o marcar a un miembro."
       );
     }
 
@@ -37,21 +41,21 @@ ${PREFIX}ban (mencionando uma mensagem)`,
     const memberToRemoveNumber = onlyNumbers(memberToRemoveJid);
 
     if (memberToRemoveNumber.length < 7 || memberToRemoveNumber.length > 15) {
-      throw new InvalidParameterError("Número inválido!");
+      throw new InvalidParameterError("Número inválido.");
     }
 
     if (memberToRemoveJid === userJid) {
-      throw new DangerError("Você não pode remover você mesmo!");
+      throw new DangerError("No es posible remover a sí mismo.");
     }
 
     if (memberToRemoveNumber === OWNER_NUMBER) {
-      throw new DangerError("Você não pode remover o dono do bot!");
+      throw new DangerError("No es posible remover al propietario de XTIALISMO.");
     }
 
     const botJid = toUserJid(BOT_NUMBER);
 
     if (memberToRemoveJid === botJid) {
-      throw new DangerError("Você não pode me remover!");
+      throw new DangerError("No es posible remover al bot.");
     }
 
     await socket.groupParticipantsUpdate(
@@ -62,6 +66,6 @@ ${PREFIX}ban (mencionando uma mensagem)`,
 
     await sendSuccessReact();
 
-    await sendReply("Membro removido com sucesso!");
+    await sendReply("E L I M I N A D O");
   },
 };

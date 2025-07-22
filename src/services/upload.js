@@ -1,23 +1,18 @@
-/**
- * Serviços de upload de imagem e geração de link.
- *
- * @author Dev Gui
- */
 const FormData = require("form-data");
 const axios = require("axios");
 
 exports.upload = async (imageBuffer, filename) => {
   try {
     if (!Buffer.isBuffer(imageBuffer)) {
-      throw new Error("O primeiro parâmetro deve ser um Buffer válido!");
+      throw new Error("¡El primer parámetro debe ser un Buffer válido!");
     }
 
     if (typeof filename !== "string" || filename.trim() === "") {
-      throw new Error("O segundo parâmetro deve ser o nome do arquivo!");
+      throw new Error("¡El segundo parámetro debe ser el nombre del archivo!");
     }
 
     if (imageBuffer.length === 0) {
-      throw new Error("O buffer da imagem está vazio!");
+      throw new Error("¡El buffer de la imagen está vacío!");
     }
 
     const API_KEY = "6d207e02198a847aa98d0a2a901485a5";
@@ -44,23 +39,23 @@ exports.upload = async (imageBuffer, filename) => {
 
     if (result.status_code !== 200) {
       throw new Error(
-        `Erro na API: ${result.error?.message || "Erro desconhecido"}`
+        `Error en la API: ${result.error?.message || "Error desconocido"}`
       );
     }
 
     return result.image.url;
   } catch (error) {
-    console.error("Erro no upload da imagem:", error.message);
+    console.error("Error en la subida de la imagen:", error.message);
 
     if (error.response) {
       return {
         success: false,
-        error: `Erro HTTP ${error.response.status}: ${error.response.statusText}`,
+        error: `Error HTTP ${error.response.status}: ${error.response.statusText}`,
       };
     } else if (error.request) {
       return {
         success: false,
-        error: "Erro de rede: Não foi possível conectar com o servidor",
+        error: "Error de red: No se pudo conectar con el servidor",
       };
     } else {
       return {

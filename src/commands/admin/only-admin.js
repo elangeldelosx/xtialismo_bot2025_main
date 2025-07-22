@@ -10,7 +10,7 @@ const { PREFIX } = require(`${BASE_DIR}/config`);
 
 module.exports = {
   name: "only-admin",
-  description: "Permite que só administradores utilizem meus comandos.",
+  description: "Permite que solo los administradores utilicen mis comandos en XTIALISMO.",
   commands: [
     "only-admin",
     "only-adm",
@@ -28,10 +28,14 @@ module.exports = {
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
    */
-  handle: async ({ args, sendReply, sendSuccessReact, remoteJid }) => {
+  handle: async ({ args, sendReply, sendSuccessReact, remoteJid, isGroup }) => {
+    if (!isGroup) {
+      throw new WarningError("Este comando solo debe ser utilizado en XTIALISMO.");
+    }
+
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Se requiere ingresar 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -40,7 +44,7 @@ module.exports = {
 
     if (!onlyAdminOn && !onlyAdminOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Se requiere ingresar 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -49,9 +53,9 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `O recurso de somente admins usarem meus comandos já está ${
-          onlyAdminOn ? "ativado" : "desativado"
-        }!`
+        `La función de que solo los administradores utilicen mis comandos ya se encuentra ${
+          onlyAdminOn ? "activa" : "desactivada"
+        }.`
       );
     }
 
@@ -63,10 +67,10 @@ module.exports = {
 
     await sendSuccessReact();
 
-    const context = onlyAdminOn ? "ativado" : "desativado";
+    const context = onlyAdminOn ? "activa" : "desactivada";
 
     await sendReply(
-      `Recurso de somente admins usarem meus comandos ${context} com sucesso!`
+      `Función de que solo los administradores utilicen los comandos ${context}.`
     );
   },
 };

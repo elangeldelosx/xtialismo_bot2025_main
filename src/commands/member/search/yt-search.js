@@ -5,7 +5,7 @@ const { search } = require(`${BASE_DIR}/services/spider-x-api`);
 
 module.exports = {
   name: "yt-search",
-  description: "Consulta Google",
+  description: "Consulta YouTube",
   commands: ["yt-search", "youtube-search"],
   usage: `${PREFIX}yt-search MC Hariel`,
   /**
@@ -15,7 +15,7 @@ module.exports = {
   handle: async ({ fullArgs, sendSuccessReply }) => {
     if (fullArgs.length <= 1) {
       throw new InvalidParameterError(
-        "Você precisa fornecer uma pesquisa para o YouTube."
+        "Necesitas proporcionar una búsqueda para YouTube."
       );
     }
 
@@ -23,7 +23,7 @@ module.exports = {
 
     if (fullArgs.length > maxLength) {
       throw new InvalidParameterError(
-        `O tamanho máximo da pesquisa é de ${maxLength} caracteres.`
+        `El tamaño máximo de la búsqueda es de ${maxLength} caracteres.`
       );
     }
 
@@ -31,7 +31,7 @@ module.exports = {
 
     if (!data) {
       throw new WarningError(
-        "Não foi possível encontrar resultados para a pesquisa."
+        "No fue posible encontrar resultados para la búsqueda."
       );
     }
 
@@ -39,17 +39,17 @@ module.exports = {
 
     for (const item of data) {
       text += `Título: *${item.title}*\n\n`;
-      text += `Duração: ${item.duration}\n\n`;
-      text += `Publicado em: ${item.published_at}\n\n`;
-      text += `Views: ${item.views}\n\n`;
+      text += `Duración: ${item.duration}\n\n`;
+      text += `Publicado en: ${item.published_at}\n\n`;
+      text += `Vistas: ${item.views}\n\n`;
       text += `URL: ${item.url}\n\n-----\n\n`;
     }
 
     text = text.slice(0, -2);
 
-    await sendSuccessReply(`*Pesquisa realizada*
+    await sendSuccessReply(`*Búsqueda realizada*
 
-*Termo*: ${fullArgs}
+*Término*: ${fullArgs}
       
 *Resultados*
 ${text}`);

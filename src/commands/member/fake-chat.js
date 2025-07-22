@@ -1,18 +1,12 @@
-/**
- * Desenvolvido por: Mkg
- * Refatorado por: Dev Gui
- *
- * @author Dev Gui
- */
 const { PREFIX } = require(`${BASE_DIR}/config`);
 const { InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { toUserJid } = require(`${BASE_DIR}/utils`);
 
 module.exports = {
   name: "fake-chat",
-  description: "Cria uma citação falsa mencionando um usuário",
+  description: "Crea una cita falsa mencionando a un usuario.",
   commands: ["fake-chat", "fq", "fake-quote", "f-quote", "fk"],
-  usage: `${PREFIX}fake-chat @usuário / texto citado / mensagem que será enviada`,
+  usage: `${PREFIX}fake-chat @usuario / texto citado / mensaje que será enviado`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -20,7 +14,7 @@ module.exports = {
   handle: async ({ remoteJid, socket, args }) => {
     if (args.length !== 3) {
       throw new InvalidParameterError(
-        `Uso incorreto do comando. Exemplo: ${PREFIX}fake-chat @usuário / texto citado / mensagem que será enviada`
+        `Uso incorrecto del comando. Ejemplo: ${PREFIX}fake-chat @usuario / texto citado / mensaje que será enviado`
       );
     }
 
@@ -31,13 +25,13 @@ module.exports = {
 
     if (quotedText.length < 2) {
       throw new InvalidParameterError(
-        "O texto citado deve ter pelo menos 2 caracteres."
+        "El texto citado debe tener al menos 2 caracteres."
       );
     }
 
     if (responseText.length < 2) {
       throw new InvalidParameterError(
-        "A mensagem de resposta deve ter pelo menos 2 caracteres."
+        "El mensaje de respuesta debe tener al menos 2 caracteres."
       );
     }
 

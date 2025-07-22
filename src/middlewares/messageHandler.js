@@ -1,8 +1,3 @@
-/**
- * Validador de mensagens
- *
- * @author MRX
- */
 const { getContent, compareUserJidWithOtherNumber } = require("../utils");
 const { errorLog } = require("../utils/logger");
 const {
@@ -64,7 +59,7 @@ exports.messageHandler = async (socket, webMessage) => {
     });
   } catch (error) {
     errorLog(
-      `Erro ao processar mensagem restrita. Verifique se eu estou como admin do grupo! Detalhes: ${error.message}`
+      `Error al procesar mensaje restringido. ¡Verifica si soy administrador del grupo! Detalles: ${error.message}`
     );
   }
 };

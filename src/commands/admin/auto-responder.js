@@ -1,36 +1,48 @@
 const { PREFIX } = require(`${BASE_DIR}/config`);
-const { InvalidParameterError } = require(`${BASE_DIR}/errors`);
+const { InvalidParameterError, WarningError } = require(`${BASE_DIR}/errors`); // Asegúrate de importar WarningError
 const {
   activateAutoResponderGroup,
   deactivateAutoResponderGroup,
+  isActiveAutoResponderGroup // Necesario para verificar el estado actual
 } = require(`${BASE_DIR}/utils/database`);
 
 module.exports = {
   name: "auto-responder",
-  description: "Ativo/desativo o recurso de auto-responder no grupo.",
+  description: "Activa/desactiva la función de auto-responder en XTIALISMO.",
   commands: ["auto-responder"],
   usage: `${PREFIX}auto-responder (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
-  handle: async ({ args, sendReply, sendSuccessReact, remoteJid }) => {
+  handle: async ({ args, sendReply, sendSuccessReact, remoteJid, isGroup }) => {
+    if (!isGroup) {
+      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
+    }
+
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
-    const autoResponder = args[0] == "1";
-    const notAutoResponder = args[0] == "0";
+    const autoResponderOn = args[0] == "1";
+    const autoResponderOff = args[0] == "0";
 
-    if (!autoResponder && !notAutoResponder) {
+    if (!autoResponderOn && !autoResponderOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
-    if (autoResponder) {
+    const hasActive = autoResponderOn && isActiveAutoResponderGroup(remoteJid);
+    const hasInactive = autoResponderOff && !isActiveAutoResponderGroup(remoteJid);
+
+    if (hasActive || hasInactive) {
+      throw new WarningError(
+        `La función de auto-responder ya está ${
+          autoResponderOn ? "activa" : "desactivada"
+        }.`
+      );
+    }
+
+    if (autoResponderOn) {
       activateAutoResponderGroup(remoteJid);
     } else {
       deactivateAutoResponderGroup(remoteJid);
@@ -38,8 +50,8 @@ module.exports = {
 
     await sendSuccessReact();
 
-    const context = autoResponder ? "ativado" : "desativado";
+    const context = autoResponderOn ? "activa" : "desactivada";
 
-    await sendReply(`Recurso de auto-responder ${context} com sucesso!`);
+    await sendReply(`Función de auto-responder ${context}.`);
   },
 };

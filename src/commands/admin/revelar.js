@@ -1,15 +1,15 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { DEFAULT_PREFIX, TEMP_DIR } = require(`${BASE_DIR}/config`);
+const { PREFIX, TEMP_DIR } = require(`${BASE_DIR}/config`);
 const { InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const ffmpeg = require("fluent-ffmpeg");
 const { getRandomName } = require(`${BASE_DIR}/utils`);
 
 module.exports = {
   name: "revelar",
-  description: "Revela uma imagem ou vídeo com visualização única",
+  description: "Revela una imagen o video de visualización única.",
   commands: ["revelar", "rv", "reveal"],
-  usage: `${DEFAULT_PREFIX}revelar (marque a imagem/vídeo) ou ${DEFAULT_PREFIX}revelar (responda a imagem/vídeo).`,
+  usage: `${PREFIX}revelar (marque la imagen/video) o ${PREFIX}revelar (responda a la imagen/video).`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -27,15 +27,15 @@ module.exports = {
   }) => {
     if (!isImage && !isVideo) {
       throw new InvalidParameterError(
-        "Você precisa marcar uma imagem/vídeo ou responder a uma imagem/vídeo para revelá-la"
+        "Se requiere marcar una imagen/video o responder a una imagen/video para revelarla."
       );
     }
 
     await sendWaitReact();
 
-    const mediaCaption = `Aqui está sua ${
-      isImage ? "imagem" : "vídeo"
-    } revelada!`;
+    const mediaCaption = `Contenido revelado: ${
+      isImage ? "imagen" : "video"
+    }.`;
 
     const outputPath = path.resolve(
       TEMP_DIR,
@@ -57,7 +57,7 @@ module.exports = {
               resolve();
             })
             .on("error", (err) => {
-              console.error("Erro FFmpeg:", err);
+              console.error("Error FFmpeg:", err);
               reject(err);
             })
             .save(outputPath);
@@ -74,22 +74,22 @@ module.exports = {
               resolve();
             })
             .on("error", (err) => {
-              console.error("Erro FFmpeg:", err);
+              console.error("Error FFmpeg:", err);
               reject(err);
             })
             .save(outputPath);
         });
       }
     } catch (error) {
-      console.error("Erro geral:", error);
-      throw new Error("Ocorreu um erro ao processar a mídia. Tente novamente.");
+      console.error("Error general:", error);
+      throw new Error("Ocurrió un error al procesar el contenido. Intente nuevamente.");
     } finally {
       const cleanFile = (filePath) => {
         if (filePath && fs.existsSync(filePath)) {
           try {
             fs.unlinkSync(filePath);
           } catch (cleanError) {
-            console.error("Erro ao limpar arquivo:", cleanError);
+            console.error("Error al limpiar archivo:", cleanError);
           }
         }
       };

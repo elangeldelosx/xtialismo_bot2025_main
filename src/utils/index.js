@@ -1,8 +1,3 @@
-/**
- * Funções diversas.
- *
- * @author Dev Gui
- */
 const { downloadContentFromMessage, delay } = require("baileys");
 const { PREFIX, COMMANDS_DIR, TEMP_DIR, ASSETS_DIR } = require("../config");
 const path = require("node:path");
@@ -184,7 +179,7 @@ exports.findCommandImport = (commandName) => {
       const targetCommand = commands.find((cmd) => {
         if (!cmd?.commands || !Array.isArray(cmd.commands)) {
           errorLog(
-            `Erro no comando do tipo "${type}": A propriedade "commands" precisa existir ser um ["array"] com os nomes dos comandos! Arquivo errado: ${cmd.name}.js`
+            `Error en el comando del tipo "${type}": La propiedad "commands" debe existir y ser un ["array"] con los nombres de los comandos. Archivo incorrecto: ${cmd.name}.js`
           );
 
           return false;
@@ -201,7 +196,7 @@ exports.findCommandImport = (commandName) => {
         break;
       }
     } catch (error) {
-      console.error(`Erro ao processar comandos do tipo "${type}":`, error);
+      console.error(`Error al procesar comandos del tipo "${type}":`, error);
     }
   }
 
@@ -227,7 +222,7 @@ exports.readCommandImports = () => {
         try {
           return require(filePath);
         } catch (err) {
-          console.error(`Erro ao importar ${filePath}:`, err);
+          console.error(`Error al importar ${filePath}:`, err);
           return null;
         }
       })
@@ -308,7 +303,7 @@ exports.getImageBuffer = async (url, options = {}) => {
 
     if (!response.ok) {
       throw new Error(
-        `Falha ao obter imagem: ${response.status} ${response.statusText}`
+        `Fallo al obtener imagen: ${response.status} ${response.statusText}`
       );
     }
 
@@ -316,7 +311,7 @@ exports.getImageBuffer = async (url, options = {}) => {
 
     return buffer;
   } catch (error) {
-    errorLog(`Erro ao obter o buffer da imagem: ${error.message}`);
+    errorLog(`Error al obtener el buffer de la imagen: ${error.message}`);
     throw error;
   }
 };
@@ -348,31 +343,7 @@ exports.getLastTimestampCreds = () => {
 };
 
 const normalizeNumber = (number) => {
-  if (!number.startsWith("55")) {
-    return number;
-  }
-
-  const withoutCountryCode = number.slice(2);
-  const ddd = withoutCountryCode.slice(0, 2);
-  const phoneNumber = withoutCountryCode.slice(2);
-
-  if (phoneNumber.length === 9) {
-    const withoutNinthDigit = phoneNumber.slice(1);
-    return {
-      with9: `55${ddd}${phoneNumber}`,
-      without9: `55${ddd}${withoutNinthDigit}`,
-    };
-  }
-
-  if (phoneNumber.length === 8) {
-    const withNinthDigit = `9${phoneNumber}`;
-    return {
-      with9: `55${ddd}${withNinthDigit}`,
-      without9: `55${ddd}${phoneNumber}`,
-    };
-  }
-
-  return { with9: number, without9: number };
+  return onlyNumbers(number);
 };
 
 exports.compareUserJidWithOtherNumber = ({ userJid, otherNumber }) => {
@@ -380,20 +351,10 @@ exports.compareUserJidWithOtherNumber = ({ userJid, otherNumber }) => {
     return false;
   }
 
-  if (!otherNumber.startsWith("55")) {
-    return userJid === toUserJid(otherNumber);
-  }
+  const userNumber = normalizeNumber(userJid);
+  const ownerNumber = normalizeNumber(otherNumber);
 
-  const userNumber = onlyNumbers(userJid);
-  const userVariations = normalizeNumber(userNumber);
-  const ownerVariations = normalizeNumber(otherNumber);
-
-  return (
-    userVariations.with9 === ownerVariations.with9 ||
-    userVariations.with9 === ownerVariations.without9 ||
-    userVariations.without9 === ownerVariations.with9 ||
-    userVariations.without9 === ownerVariations.without9
-  );
+  return userNumber === ownerNumber;
 };
 
 exports.GROUP_PARTICIPANT_ADD = 27;

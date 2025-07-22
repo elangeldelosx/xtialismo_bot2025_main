@@ -1,8 +1,3 @@
-/**
- * Serviços para processar figurinhas (stickers) no ffmpeg.
- *
- * @author MRX
- */
 const { TEMP_DIR } = require("../config");
 const path = require("node:path");
 const fs = require("node:fs");
@@ -68,8 +63,8 @@ exports.processStaticSticker = async (inputPath, metadata) => {
     exec(cmd, async (error, _, stderr) => {
       try {
         if (error) {
-          console.error("FFmpeg error:", stderr);
-          reject(new Error("Erro ao processar figurinha estática."));
+          console.error("Error de FFmpeg:", stderr);
+          reject(new Error("Error al procesar sticker estático."));
           return;
         }
 
@@ -100,8 +95,8 @@ exports.processAnimatedSticker = async (inputPath, metadata) => {
     exec(cmd, async (error, _, stderr) => {
       try {
         if (error) {
-          console.error("FFmpeg error:", stderr);
-          reject(new Error("Erro ao processar figurinha animada."));
+          console.error("Error de FFmpeg:", stderr);
+          reject(new Error("Error al procesar sticker animado."));
           return;
         }
 

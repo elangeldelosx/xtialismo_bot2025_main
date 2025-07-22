@@ -1,10 +1,10 @@
 /**
- * Este script é responsável
- * por carregar os eventos
- * que serão escutados pelo
- * socket do WhatsApp.
+ * Este script es responsable
+ * de cargar los eventos
+ * que serán escuchados por
+ * el socket de WhatsApp.
  *
- * @author Dev Gui
+ * @author El Angel de Los X
  */
 const { TIMEOUT_IN_MILLISECONDS_BY_EVENT } = require("./config");
 const { onMessagesUpsert } = require("./middlewares/onMesssagesUpsert");
@@ -22,10 +22,10 @@ exports.load = (socket) => {
         return;
       }
 
-      errorLog(`Erro ao processar evento ${eventName}: ${error.message}`);
+      errorLog(`Error al procesar evento ${eventName}: ${error.message}`);
 
       if (error.stack) {
-        errorLog(`Stack trace: ${error.stack}`);
+        errorLog(`Ruta de pila: ${error.stack}`);
       }
     }
   };
@@ -50,13 +50,13 @@ exports.load = (socket) => {
     if (badMacHandler.handleError(error, "uncaughtException")) {
       return;
     }
-    errorLog(`Erro não capturado: ${error.message}`);
+    errorLog(`Error no capturado: ${error.message}`);
   });
 
   process.on("unhandledRejection", (reason) => {
     if (badMacHandler.handleError(reason, "unhandledRejection")) {
       return;
     }
-    errorLog(`Promessa rejeitada não tratada: ${reason}`);
+    errorLog(`Promesa rechazada no manejada: ${reason}`);
   });
 };

@@ -1,14 +1,9 @@
-/**
- * Serviços de processamento de imagens usando ffmpeg.
- *
- * @author MRX
- */
 const fs = require("node:fs");
 const path = require("node:path");
 const { exec } = require("child_process");
 const { getRandomNumber } = require("../utils");
 const { errorLog } = require("../utils/logger");
-const { TEMP_DIR } = require(`${BASE_DIR}/config`);
+const { TEMP_DIR } = require("../config"); // Ajustado el path de importación
 
 class Ffmpeg {
   constructor() {
@@ -19,7 +14,7 @@ class Ffmpeg {
     return new Promise((resolve, reject) => {
       exec(command, (error, stdout, stderr) => {
         if (error) {
-          errorLog(`Command error: ${stderr}`);
+          errorLog(`Error de comando: ${stderr}`);
           return reject(error);
         }
         resolve(stdout);

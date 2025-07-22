@@ -1,20 +1,14 @@
-/**
- * Desenvolvido por: Dev Gui
- * Implementação dos metadados feita por: MRX
- *
- * @author Dev Gui
- */
-const { getRandomName } = require(`${BASE_DIR}/utils`);
 const fs = require("node:fs");
-const { addStickerMetadata } = require(`${BASE_DIR}/services/sticker`);
-const { InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { PREFIX, BOT_NAME, BOT_EMOJI } = require(`${BASE_DIR}/config`);
+const { InvalidParameterError } = require(`${BASE_DIR}/errors`);
+const { addStickerMetadata } = require(`${BASE_DIR}/services/sticker`);
+const { getRandomName } = require(`${BASE_DIR}/utils`);
 
 module.exports = {
   name: "sticker",
-  description: "Cria figurinhas de imagem, gif ou vídeo (máximo 10 segundos).",
+  description: "Crea stickers de imagen, gif o video (máximo 10 segundos).",
   commands: ["f", "s", "sticker", "fig"],
-  usage: `${PREFIX}sticker (marque ou responda uma imagem/gif/vídeo)`,
+  usage: `${PREFIX}sticker (marca o responde una imagen/gif/video)`,
   handle: async ({
     isImage,
     isVideo,
@@ -29,7 +23,7 @@ module.exports = {
   }) => {
     if (!isImage && !isVideo) {
       throw new InvalidParameterError(
-        `Você precisa marcar ou responder a uma imagem/gif/vídeo!`
+        `¡Necesitas marcar o responder a una imagen/gif/video!`
       );
     }
 
@@ -56,13 +50,13 @@ module.exports = {
             break;
           } catch (downloadError) {
             console.error(
-              `Tentativa ${attempt} de download de imagem falhou:`,
+              `Intento ${attempt} de descarga de imagen falló:`,
               downloadError.message
             );
 
             if (attempt === 3) {
               throw new Error(
-                `Falha ao baixar imagem após 3 tentativas: ${downloadError.message}`
+                `Fallo al descargar imagen después de 3 intentos: ${downloadError.message}`
               );
             }
 
@@ -77,7 +71,7 @@ module.exports = {
 
           exec(cmd, (error, _, stderr) => {
             if (error) {
-              console.error("FFmpeg error:", stderr);
+              console.error("Error de FFmpeg:", stderr);
               reject(error);
             } else {
               resolve();
@@ -91,13 +85,13 @@ module.exports = {
             break;
           } catch (downloadError) {
             console.error(
-              `Tentativa ${attempt} de download de vídeo falhou:`,
+              `Intento ${attempt} de descarga de video falló:`,
               downloadError.message
             );
 
             if (attempt === 3) {
               throw new Error(
-                `Falha ao baixar vídeo após 3 tentativas. Problema de conexão com WhatsApp.`
+                `Fallo al descargar video después de 3 intentos. Problema de conexión con WhatsApp.`
               );
             }
 
@@ -116,7 +110,7 @@ module.exports = {
             fs.unlinkSync(inputPath);
           }
           return sendErrorReply(
-            `O vídeo enviado tem mais de ${maxDuration} segundos! Envie um vídeo menor.`
+            `¡El video enviado tiene más de ${maxDuration} segundos! Envía un video más corto.`
           );
         }
 
@@ -127,7 +121,7 @@ module.exports = {
 
           exec(cmd, (error, _, stderr) => {
             if (error) {
-              console.error("FFmpeg error:", stderr);
+              console.error("Error de FFmpeg:", stderr);
               reject(error);
             } else {
               resolve();
@@ -142,7 +136,7 @@ module.exports = {
       }
 
       if (!fs.existsSync(outputPath)) {
-        throw new Error("Arquivo de saída não foi criado pelo FFmpeg");
+        throw new Error("Archivo de salida no fue creado por FFmpeg");
       }
 
       const stickerPath = await addStickerMetadata(
@@ -158,13 +152,13 @@ module.exports = {
           break;
         } catch (stickerError) {
           console.error(
-            `Tentativa ${attempt} de envio de sticker falhou:`,
+            `Intento ${attempt} de envío de sticker falló:`,
             stickerError.message
           );
 
           if (attempt === 3) {
             throw new Error(
-              `Falha ao enviar figurinha após 3 tentativas: ${stickerError.message}`
+              `Fallo al enviar sticker después de 3 intentos: ${stickerError.message}`
             );
           }
 
@@ -179,7 +173,7 @@ module.exports = {
         fs.unlinkSync(stickerPath);
       }
     } catch (error) {
-      console.error("Erro detalhado no comando sticker:", error);
+      console.error("Error detallado en el comando sticker:", error);
 
       if (inputPath && fs.existsSync(inputPath)) {
         fs.unlinkSync(inputPath);
@@ -196,17 +190,17 @@ module.exports = {
         error.message.includes("mmg.whatsapp.net")
       ) {
         throw new Error(
-          `Erro de conexão ao baixar mídia do WhatsApp. Tente novamente em alguns segundos.`
+          `Error de conexión al descargar multimedia de WhatsApp. Intenta de nuevo en unos segundos.`
         );
       }
 
       if (error.message.includes("FFmpeg")) {
         throw new Error(
-          `Erro ao processar mídia com FFmpeg. Verifique se o arquivo não está corrompido.`
+          `Error al procesar multimedia con FFmpeg. Verifica si el archivo no está corrupto.`
         );
       }
 
-      throw new Error(`Erro ao processar a figurinha: ${error.message}`);
+      throw new Error(`Error al procesar el sticker: ${error.message}`);
     }
   },
 };

@@ -4,27 +4,23 @@ const {
 
 const { isActiveGroupRestriction } = require(`${BASE_DIR}/utils/database`);
 
-const { WarningError } = require(`${BASE_DIR}/errors`);
+const { WarningError, InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { PREFIX } = require(`${BASE_DIR}/config`);
 
 module.exports = {
   name: "anti-event",
   description:
-    "Ativa/desativa o recurso de anti-event no grupo, apagando a mensagem de evento se estiver ativo.",
+    "Activa/desactiva la función de anti-evento en XTIALISMO, eliminando el mensaje de evento si está activo.",
   commands: ["anti-event", "anti-evento", "anti-eventos"],
   usage: `${PREFIX}anti-event (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando só deve ser usado em grupos!");
+      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
     }
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -33,7 +29,7 @@ module.exports = {
 
     if (!antiEventOn && !antiEventOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -45,16 +41,16 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `O recurso de anti-event já está ${
-          antiEventOn ? "ativado" : "desativado"
-        }!`
+        `La función de anti-evento ya está ${
+          antiEventOn ? "activa" : "desactivada"
+        }.`
       );
     }
 
     updateIsActiveGroupRestriction(remoteJid, "anti-event", antiEventOn);
 
-    const status = antiEventOn ? "ativado" : "desativado";
+    const status = antiEventOn ? "activa" : "desactivada";
 
-    await sendSuccessReply(`Anti-event ${status} com sucesso!`);
+    await sendSuccessReply(`Anti-evento ${status}.`);
   },
 };

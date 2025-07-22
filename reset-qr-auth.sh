@@ -1,55 +1,55 @@
 #!/bin/bash
 
-# Script para reset da autenticação do Takeshi Bot
+# Script para reiniciar la autenticacion de xtialismo_bot2025
 
-echo "🤖 Takeshi Bot - Reset da Autenticação"
+echo "xtialismo_bot2025 - Reinicio de Autenticacion"
 echo "====================================="
 echo ""
 
 if [ ! -d "assets" ]; then
-    echo "❌ Erro: Você deve executar este script no diretório raiz do Takeshi Bot"
-    echo "   Certifique-se de estar na pasta onde estão as pastas 'assets' e 'src'"
+    echo "Error: Debes ejecutar este script en el directorio raiz de xtialismo_bot2025"
+    echo "   Asegurate de estar en la carpeta donde estan las carpetas 'assets' y 'src'"
     exit 1
 fi
 
 if [ ! -d "assets/auth/baileys" ]; then
-    echo "⚠️  A pasta de autenticação não existe ou já foi removida"
-    echo "   Caminho: ./assets/auth/baileys"
+    echo "Advertencia: La carpeta de autenticacion no existe o ya fue eliminada"
+    echo "   Ruta: ./assets/auth/baileys"
     exit 0
 fi
 
-echo "⚠️  ATENÇÃO: Esta ação irá remover todos os arquivos de autenticação do bot!"
-echo "   Após executar este script, você precisará:"
-echo "   1. Remover o dispositivo antigo em \"dispositivos conectados\" nas configurações do WhatsApp"
-echo "   2. Iniciar o bot novamente por aqui (npm start)"
-echo "   3. Colocar o número de telefone do bot novamente"
+echo "Advertencia: Esta accion eliminara todos los archivos de autenticacion del bot!"
+echo "   Despues de ejecutar este script, necesitaras:"
+echo "   1. Eliminar el dispositivo antiguo en \"dispositivos conectados\" en la configuracion de WhatsApp"
+echo "   2. Iniciar el bot nuevamente desde aqui (npm start)"
+echo "   3. Colocar el numero de telefono del bot nuevamente"
 echo ""
-read -p "Deseja continuar? (s/N): " confirm
+read -p "Deseas continuar? (s/N): " confirm
 
 case $confirm in
     [sS]|[sS][iI][mM])
         echo ""
-        echo "🔄 Removendo arquivos de autenticação..."
+        echo "Eliminando archivos de autenticacion..."
         
         rm -rf ./assets/auth/baileys
         
         if [ $? -eq 0 ]; then
-            echo "✅ Arquivos de autenticação removidos com sucesso!"
+            echo "Archivos de autenticacion eliminados con exito!"
             echo ""
-            echo "📝 Próximos passos:"
-            echo "   1. Execute 'npm start' para iniciar o bot"
-            echo "   2. Digite seu número de telefone quando solicitado"
-            echo "   3. Use o código de pareamento no WhatsApp"
+            echo "Proximos pasos:"
+            echo "   1. Ejecuta 'npm start' para iniciar el bot"
+            echo "   2. Escribe tu numero de telefono cuando se te solicite"
+            echo "   3. Usa el codigo de emparejamiento en WhatsApp"
         else
-            echo "❌ Erro ao remover os arquivos de autenticação"
+            echo "Error al eliminar los archivos de autenticacion"
             exit 1
         fi
         ;;
     *)
-        echo "❌ Operação cancelada pelo usuário"
+        echo "Operacion cancelada por el usuario"
         exit 0
         ;;
 esac
 
 echo ""
-echo "🚀 Script executado com sucesso!"
+echo "¡Script ejecutado con exito!"

@@ -9,17 +9,17 @@ const {
 
 module.exports = {
   name: "anti-link",
-  description: "Ativo/desativo o recurso de anti-link no grupo.",
+  description: "Activa/desactiva la función de anti-enlace en XTIALISMO.",
   commands: ["anti-link"],
   usage: `${PREFIX}anti-link (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
-  handle: async ({ args, sendReply, sendSuccessReact, remoteJid }) => {
+  handle: async ({ args, sendReply, sendSuccessReact, remoteJid, isGroup }) => {
+    if (!isGroup) {
+      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
+    }
+
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -28,7 +28,7 @@ module.exports = {
 
     if (!antiLinkOn && !antiLinkOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -37,9 +37,9 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `O recurso de anti-link já está ${
-          antiLinkOn ? "ativado" : "desativado"
-        }!`
+        `La función de anti-enlace ya está ${
+          antiLinkOn ? "activa" : "desactivada"
+        }.`
       );
     }
 
@@ -51,8 +51,8 @@ module.exports = {
 
     await sendSuccessReact();
 
-    const context = antiLinkOn ? "ativado" : "desativado";
+    const context = antiLinkOn ? "activada" : "desactivada";
 
-    await sendReply(`Recurso de anti-link ${context} com sucesso!`);
+    await sendReply(`Función de anti-enlace ${context}.`);
   },
 };

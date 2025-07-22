@@ -1,9 +1,10 @@
 const { PREFIX } = require(`${BASE_DIR}/config`);
 const { activateGroup } = require(`${BASE_DIR}/utils/database`);
+const { WarningError } = require(`${BASE_DIR}/errors`); // Asegúrate de importar WarningError
 
 module.exports = {
   name: "on",
-  description: "Ativa o bot no grupo",
+  description: "Activa el bot en el grupo.",
   commands: ["on"],
   usage: `${PREFIX}on`,
   /**
@@ -12,11 +13,11 @@ module.exports = {
    */
   handle: async ({ sendSuccessReply, remoteJid, isGroup }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando deve ser usado dentro de um grupo.");
+      throw new WarningError("Este comando debe ser usado dentro de un grupo.");
     }
 
     activateGroup(remoteJid);
 
-    await sendSuccessReply("Bot ativado no grupo!");
+    await sendSuccessReply("¡Bot activado en el grupo!");
   },
 };

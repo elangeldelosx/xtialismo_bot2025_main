@@ -1,6 +1,6 @@
 /**
- * Desenvolvido por: Mkg
- * Refatorado por: Dev Gui
+ * Desarrollado por: Mkg
+ * Refactorizado por: Dev Gui
  *
  * @author Dev Gui
  */
@@ -15,7 +15,7 @@ const { DangerError, WarningError } = require(`${BASE_DIR}/errors`);
 
 module.exports = {
   name: "unmute",
-  description: "Desativa o mute de um membro do grupo",
+  description: "Desactiva el silencio de un miembro de XTIALISMO.",
   commands: ["unmute", "desmutar"],
   usage: `${PREFIX}unmute @usuario`,
   /**
@@ -31,12 +31,12 @@ module.exports = {
     socket,
   }) => {
     if (!isGroup) {
-      throw new DangerError("Este comando só pode ser usado em grupos.");
+      throw new DangerError("Este comando solo puede ser utilizado en XTIALISMO.");
     }
 
     if (!args.length) {
       throw new DangerError(
-        `Você precisa mencionar um usuário para desmutar.\n\nExemplo: ${PREFIX}unmute @fulano`
+        `Se requiere mencionar a un usuario para desactivar el silencio.\n\nEjemplo: ${PREFIX}unmute @fulano`
       );
     }
 
@@ -49,11 +49,11 @@ module.exports = {
     }
 
     if (!checkIfMemberIsMuted(remoteJid, targetUserJid)) {
-      throw new WarningError("Este usuário não está silenciado!");
+      throw new WarningError("Este usuario no está silenciado.");
     }
 
     unmuteMember(remoteJid, targetUserJid);
 
-    await sendSuccessReply("Usuário desmutado com sucesso!");
+    await sendSuccessReply("Silencio de usuario desactivado.");
   },
 };

@@ -1,12 +1,3 @@
-/**
- * Utilitário para lidar com erros "Bad MAC"
- * que são comuns em bots WhatsApp usando Baileys.
- *
- * Este módulo fornece funções para detectar, contar
- * e lidar graciosamente com esses erros.
- *
- * @author Dev Gui
- */
 const { errorLog, warningLog, infoLog } = require("./logger");
 const path = require("node:path");
 const fs = require("node:fs");
@@ -72,7 +63,7 @@ class BadMacHandler {
             file.includes("signal-identity")
           ) {
             fs.unlinkSync(filePath);
-            infoLog(`Removido arquivo de sessão problemático: ${file}`);
+            infoLog(`Archivo de sesión problemático eliminado: ${file}`);
             removedCount++;
           }
         }
@@ -80,21 +71,21 @@ class BadMacHandler {
 
       if (removedCount > 0) {
         warningLog(
-          `${removedCount} arquivos de sessão problemáticos removidos. Credenciais principais preservadas.`
+          `${removedCount} archivos de sesión problemáticos eliminados. Credenciales principales preservadas.`
         );
         return true;
       }
 
       return false;
     } catch (error) {
-      errorLog(`Erro ao limpar arquivos de sessão: ${error.message}`);
+      errorLog(`Error al limpiar archivos de sesión: ${error.message}`);
       return false;
     }
   }
 
   incrementErrorCount() {
     this.errorCount++;
-    errorLog(`Bad MAC error count: ${this.errorCount}/${this.maxRetries}`);
+    errorLog(`Conteo de errores Bad MAC: ${this.errorCount}/${this.maxRetries}`);
 
     const now = Date.now();
     if (now - this.lastReset > this.resetInterval) {
@@ -109,7 +100,7 @@ class BadMacHandler {
 
     if (previousCount > 0) {
       warningLog(
-        `Reset do contador de Bad MAC errors. Contador anterior: ${previousCount}`
+        `Contador de errores Bad MAC reiniciado. Contador anterior: ${previousCount}`
       );
     }
   }
@@ -123,18 +114,18 @@ class BadMacHandler {
       return false;
     }
 
-    errorLog(`Bad MAC error detectado em ${context}: ${error.message}`);
+    errorLog(`Error Bad MAC detectado en ${context}: ${error.message}`);
     this.incrementErrorCount();
 
     if (this.hasReachedLimit()) {
       warningLog(
-        `Limite de Bad MAC errors atingido (${this.maxRetries}). Considere reiniciar o bot.`
+        `Límite de errores Bad MAC alcanzado (${this.maxRetries}). Considere reiniciar el bot.`
       );
       return true;
     }
 
     warningLog(
-      `Ignorando Bad MAC error e continuando operação... (${this.errorCount}/${this.maxRetries})`
+      `Ignorando error Bad MAC y continuando operación... (${this.errorCount}/${this.maxRetries})`
     );
     return true;
   }

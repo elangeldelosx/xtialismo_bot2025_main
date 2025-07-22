@@ -1,9 +1,3 @@
-/**
- * Funções úteis para trabalhar
- * com dados.
- *
- * @author Dev Gui
- */
 const path = require("node:path");
 const fs = require("node:fs");
 

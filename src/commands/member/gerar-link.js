@@ -6,9 +6,9 @@ const { getRandomNumber } = require(`${BASE_DIR}/utils`);
 
 module.exports = {
   name: "gerar-link",
-  description: "Faço upload da imagens",
+  description: "Sube imágenes.",
   commands: ["to-link", "up", "upload", "gera-link", "gerar-link"],
-  usage: `${PREFIX}gerar-link (marque a imagem) ou ${PREFIX}gerar-link (responda a imagem)`,
+  usage: `${PREFIX}gerar-link (marca la imagen) o ${PREFIX}gerar-link (responde a la imagen)`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -23,7 +23,7 @@ module.exports = {
   }) => {
     if (!isImage) {
       throw new InvalidParameterError(
-        "Você deve marcar ou responder uma imagem!"
+        "¡Debes marcar o responder una imagen!"
       );
     }
 
@@ -38,13 +38,13 @@ module.exports = {
 
     if (!link) {
       throw new Error(
-        "Erro ao fazer upload da imagem. Tente novamente mais tarde."
+        "Error al subir la imagen. Intenta de nuevo más tarde."
       );
     }
 
     await sendSuccessReact();
 
-    await sendReply(`Aqui está o link da sua imagem !\n\n- ${link}`);
+    await sendReply(`¡Aquí está el enlace de tu imagen!\n\n- ${link}`);
 
     fs.unlinkSync(filePath);
   },

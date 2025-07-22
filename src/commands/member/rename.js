@@ -11,9 +11,9 @@ const { getRandomName } = require(`${BASE_DIR}/utils`);
 
 module.exports = {
   name: "rename",
-  description: "Adiciona novos meta-dados à figurinha.",
+  description: "Añade nuevos metadatos al sticker.",
   commands: ["rename", "renomear", "rn"],
-  usage: `${PREFIX}rename pacote / autor (responda a uma figurinha)`,
+  usage: `${PREFIX}rename paquete / autor (responde a un sticker)`,
   handle: async ({
     isSticker,
     downloadSticker,
@@ -25,13 +25,13 @@ module.exports = {
   }) => {
     if (!isSticker) {
       throw new InvalidParameterError(
-        "Você precisa responder a uma figurinha!"
+        "¡Necesitas responder a un sticker!"
       );
     }
 
     if (args.length !== 2) {
       throw new InvalidParameterError(
-        "Você precisa fornecer o pacote e o autor no formato: pacote / autor"
+        "Necesitas proporcionar el paquete y el autor en el formato: paquete / autor"
       );
     }
 
@@ -40,7 +40,7 @@ module.exports = {
 
     if (!pack || !author) {
       throw new InvalidParameterError(
-        "Você precisa fornecer o pacote e o autor no formato: pacote / autor"
+        "Necesitas proporcionar el paquete y el autor en el formato: paquete / autor"
       );
     }
 
@@ -49,13 +49,13 @@ module.exports = {
 
     if (pack.length < minLength || pack.length > maxLength) {
       throw new DangerError(
-        `O pacote deve ter entre ${minLength} e ${maxLength} caracteres.`
+        `El paquete debe tener entre ${minLength} y ${maxLength} caracteres.`
       );
     }
 
     if (author.length < minLength || author.length > maxLength) {
       throw new DangerError(
-        `O autor deve ter entre ${minLength} e ${maxLength} caracteres.`
+        `El autor debe tener entre ${minLength} y ${maxLength} caracteres.`
       );
     }
 
@@ -91,7 +91,7 @@ module.exports = {
 
       await sendStickerFromFile(finalStickerPath);
     } catch (error) {
-      throw new Error(`Erro ao renomear a figurinha: ${error.message}`);
+      throw new Error(`Error al renombrar el sticker: ${error.message}`);
     } finally {
       if (fs.existsSync(inputPath)) {
         fs.unlinkSync(inputPath);

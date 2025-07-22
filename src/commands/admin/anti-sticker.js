@@ -4,27 +4,23 @@ const {
 
 const { isActiveGroupRestriction } = require(`${BASE_DIR}/utils/database`);
 
-const { WarningError } = require(`${BASE_DIR}/errors`);
+const { WarningError, InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { PREFIX } = require(`${BASE_DIR}/config`);
 
 module.exports = {
   name: "anti-sticker",
   description:
-    "Ativa/desativa o recurso de anti-sticker no grupo, apagando a figurinha se estiver ativo.",
+    "Activa/desactiva la función de anti-sticker en XTIALISMO, eliminando el sticker si está activo.",
   commands: ["anti-sticker", "anti-figu", "anti-figurinha", "anti-figurinhas"],
   usage: `${PREFIX}anti-sticker (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando só deve ser usado em grupos!");
+      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
     }
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -33,7 +29,7 @@ module.exports = {
 
     if (!antiStickerOn && !antiStickerOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -45,16 +41,16 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `O recurso de anti-sticker já está ${
-          antiStickerOn ? "ativado" : "desativado"
-        }!`
+        `La función de anti-sticker ya está ${
+          antiStickerOn ? "activa" : "desactivada"
+        }.`
       );
     }
 
     updateIsActiveGroupRestriction(remoteJid, "anti-sticker", antiStickerOn);
 
-    const status = antiStickerOn ? "ativado" : "desativado";
+    const status = antiStickerOn ? "activa" : "desactivada";
 
-    await sendSuccessReply(`Anti-sticker ${status} com sucesso!`);
+    await sendSuccessReply(`Anti-sticker ${status}.`);
   },
 };

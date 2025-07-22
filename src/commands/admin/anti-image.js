@@ -4,27 +4,23 @@ const {
 
 const { isActiveGroupRestriction } = require(`${BASE_DIR}/utils/database`);
 
-const { WarningError } = require(`${BASE_DIR}/errors`);
+const { WarningError, InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { PREFIX } = require(`${BASE_DIR}/config`);
 
 module.exports = {
   name: "anti-image",
   description:
-    "Ativa/desativa o recurso de anti-image no grupo, apagando a mensagem de imagem se estiver ativo.",
+    "Activa/desactiva la función de anti-imagen en XTIALISMO, eliminando el mensaje de imagen si está activo.",
   commands: ["anti-image", "anti-img", "anti-imagem", "anti-imagens"],
   usage: `${PREFIX}anti-image (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando só deve ser usado em grupos!");
+      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
     }
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -33,7 +29,7 @@ module.exports = {
 
     if (!antiImageOn && !antiImageOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -45,16 +41,16 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `O recurso de anti-image já está ${
-          antiImageOn ? "ativado" : "desativado"
-        }!`
+        `La función de anti-imagen ya está ${
+          antiImageOn ? "activa" : "desactivada"
+        }.`
       );
     }
 
     updateIsActiveGroupRestriction(remoteJid, "anti-image", antiImageOn);
 
-    const status = antiImageOn ? "ativado" : "desativado";
+    const status = antiImageOn ? "activa" : "desactivada";
 
-    await sendSuccessReply(`Anti-image ${status} com sucesso!`);
+    await sendSuccessReply(`Anti-imagen ${status}.`);
   },
 };

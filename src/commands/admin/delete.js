@@ -3,9 +3,9 @@ const { InvalidParameterError } = require(`${BASE_DIR}/errors`);
 
 module.exports = {
   name: "delete",
-  description: "Excluo mensagens",
+  description: "Elimina mensajes.",
   commands: ["delete", "d"],
-  usage: `${PREFIX}delete (mencione uma mensagem)`,
+  usage: `${PREFIX}delete (mencione un mensaje)`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -13,7 +13,7 @@ module.exports = {
   handle: async ({ deleteMessage, webMessage, remoteJid }) => {
     if (!webMessage?.message?.extendedTextMessage?.contextInfo) {
       throw new InvalidParameterError(
-        "Você deve mencionar uma mensagem para excluir!"
+        "Se debe mencionar un mensaje para eliminar."
       );
     }
 
@@ -22,7 +22,7 @@ module.exports = {
 
     if (!stanzaId || !participant) {
       throw new InvalidParameterError(
-        "Você deve mencionar uma mensagem para excluir!"
+        "Se debe mencionar un mensaje para eliminar."
       );
     }
 

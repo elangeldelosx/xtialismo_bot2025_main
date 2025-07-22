@@ -4,9 +4,9 @@ const { onlyNumbers } = require(`${BASE_DIR}/utils`);
 
 module.exports = {
   name: "get-lid",
-  description: "Retorna o LID do contato mencionado.",
+  description: "Retorna el LID del contacto mencionado.",
   commands: ["get-lid"],
-  usage: `${PREFIX}get-lid @marca ou +telefone`,
+  usage: `${PREFIX}get-lid @menciona o +telefono`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -14,7 +14,7 @@ module.exports = {
   handle: async ({ args, sendSuccessReply, socket }) => {
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você deve mencionar alguém ou informar um contato!"
+        "¡Debes mencionar a alguien o informar un contacto!"
       );
     }
 
@@ -22,7 +22,7 @@ module.exports = {
 
     if (!result) {
       throw new WarningError(
-        "O número informado não está registrado no WhatsApp!"
+        "¡El número informado no está registrado en WhatsApp!"
       );
     }
 

@@ -7,9 +7,9 @@ const { getRandomNumber } = require(`${BASE_DIR}/utils`);
 
 module.exports = {
   name: "toimage",
-  description: "Transformo figurinhas estáticas em imagem",
+  description: "Transforma stickers estáticos en imagen.",
   commands: ["toimage", "toimg"],
-  usage: `${PREFIX}toimage (marque a figurinha) ou ${PREFIX}toimage (responda a figurinha)`,
+  usage: `${PREFIX}toimage (marca el sticker) o ${PREFIX}toimage (responde al sticker)`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -23,7 +23,7 @@ module.exports = {
     sendImageFromFile,
   }) => {
     if (!isSticker) {
-      throw new InvalidParameterError("Você precisa enviar uma figurinha!");
+      throw new InvalidParameterError("¡Necesitas enviar un sticker!");
     }
 
     await sendWaitReact();
@@ -43,6 +43,14 @@ module.exports = {
       await sendSuccessReact();
 
       await sendImageFromFile(outputPath);
+
+      // Limpiar archivos temporales
+      if (fs.existsSync(inputPath)) {
+        fs.unlinkSync(inputPath);
+      }
+      if (fs.existsSync(outputPath)) {
+        fs.unlinkSync(outputPath);
+      }
     });
   },
 };

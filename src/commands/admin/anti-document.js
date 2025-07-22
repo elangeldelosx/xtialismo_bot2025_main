@@ -4,27 +4,23 @@ const {
 
 const { isActiveGroupRestriction } = require(`${BASE_DIR}/utils/database`);
 
-const { WarningError } = require(`${BASE_DIR}/errors`);
+const { WarningError, InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { PREFIX } = require(`${BASE_DIR}/config`);
 
 module.exports = {
   name: "anti-document",
   description:
-    "Ativa/desativa o recurso de anti-document no grupo, apagando a mensagem de documento se estiver ativo.",
+    "Activa/desactiva la función de anti-documento en XTIALISMO, eliminando el mensaje de documento si está activo.",
   commands: ["anti-document", "anti-doc", "anti-documento", "anti-documentos"],
   usage: `${PREFIX}anti-document (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando só deve ser usado em grupos!");
+      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
     }
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -33,7 +29,7 @@ module.exports = {
 
     if (!antiDocumentOn && !antiDocumentOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -45,16 +41,16 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `O recurso de anti-document já está ${
-          antiDocumentOn ? "ativado" : "desativado"
-        }!`
+        `La función de anti-documento ya está ${
+          antiDocumentOn ? "activa" : "desactivada"
+        }.`
       );
     }
 
     updateIsActiveGroupRestriction(remoteJid, "anti-document", antiDocumentOn);
 
-    const status = antiDocumentOn ? "ativado" : "desativado";
+    const status = antiDocumentOn ? "activa" : "desactivada";
 
-    await sendSuccessReply(`Anti-document ${status} com sucesso!`);
+    await sendSuccessReply(`Anti-documento ${status}.`);
   },
 };

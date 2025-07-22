@@ -1,13 +1,13 @@
 /**
- * Utilize este arquivo para definir as mensagens de boas-vindas e despedidas do grupo.
- * As mensagens podem conter a menção ao membro que entrou ou saiu do grupo.
- * Você pode personalizar as mensagens conforme necessário.
+ * Utiliza este archivo para definir los mensajes de bienvenida y despedida del grupo.
+ * Los mensajes pueden contener la mención al miembro que entró o salió del grupo.
+ * Puedes personalizar los mensajes según sea necesario.
  *
- * Para colocar a menção ao membro, use "@member" na mensagem.
+ * Para colocar la mención al miembro, usa "@member" en el mensaje.
  *
  * @author Dev Gui
  */
 module.exports = {
-  welcomeMessage: "Seja bem vindo ao nosso grupo, @member!",
-  exitMessage: "Poxa, @member saiu do grupo... Sentiremos sua falta!",
+  welcomeMessage: "Saludos y bienvenido a XTIALISMO, @member.",
+  exitMessage: "@member salió del grupo... Da igual y no tiene importancia.",
 };

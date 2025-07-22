@@ -1,11 +1,3 @@
-/**
- * Funções comuns de uso geral
- * do bot. Não há
- * necessidade de modificar
- * este arquivo.
- *
- * @author Dev Gui
- */
 const { BOT_EMOJI, TIMEOUT_IN_MILLISECONDS_BY_EVENT } = require("../config");
 const { extractDataFromMessage, baileysIs, download } = require(".");
 const fs = require("node:fs");
@@ -42,7 +34,7 @@ exports.loadCommonFunctions = ({ socket, webMessage }) => {
       } catch (error) {
         lastError = error;
         console.warn(
-          `Tentativa ${attempt}/${maxRetries} falhou:`,
+          `Intento ${attempt}/${maxRetries} falló:`,
           error.message
         );
 
@@ -53,7 +45,7 @@ exports.loadCommonFunctions = ({ socket, webMessage }) => {
     }
 
     throw new Error(
-      `Falha após ${maxRetries} tentativas. Último erro: ${lastError.message}`
+      `Fallo después de ${maxRetries} intentos. Último error: ${lastError.message}`
     );
   };
 
@@ -153,19 +145,19 @@ exports.loadCommonFunctions = ({ socket, webMessage }) => {
   const sendWaitReply = async (text, mentions) => {
     await sendWaitReact();
     return await sendReply(
-      `⏳ Aguarde! ${text || "Carregando dados..."}`,
+      `⏳ ¡Espera! ${text || "Cargando datos..."}`,
       mentions
     );
   };
 
   const sendWarningReply = async (text, mentions) => {
     await sendWarningReact();
-    return await sendReply(`⚠️ Atenção! ${text}`, mentions);
+    return await sendReply(`⚠️ ¡Atención! ${text}`, mentions);
   };
 
   const sendErrorReply = async (text, mentions) => {
     await sendErrorReact();
-    return await sendReply(`❌ Erro! ${text}`, mentions);
+    return await sendReply(`❌ ¡Error! ${text}`, mentions);
   };
 
   const sendStickerFromFile = async (file, quoted = true) => {

@@ -4,9 +4,9 @@ const { InvalidParameterError } = require(`${BASE_DIR}/errors`);
 
 module.exports = {
   name: "attp",
-  description: "Faz figurinhas animadas de texto.",
+  description: "Crea stickers animados de texto.",
   commands: ["attp"],
-  usage: `${PREFIX}attp teste`,
+  usage: `${PREFIX}attp texto`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -20,7 +20,7 @@ module.exports = {
   }) => {
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa informar o texto que deseja transformar em figurinha."
+        "Necesitas proporcionar el texto que deseas transformar en sticker."
       );
     }
 
@@ -34,9 +34,9 @@ module.exports = {
       const data = await response.json();
 
       await sendErrorReply(
-        `Ocorreu um erro ao executar uma chamada remota para a Spider X API no comando attp!
+        `¡Ocurrió un error al ejecutar una llamada remota a la API de Spider X en el comando attp!
       
-📄 *Detalhes*: ${data.message}`
+📄 *Detalles*: ${data.message}`
       );
       return;
     }

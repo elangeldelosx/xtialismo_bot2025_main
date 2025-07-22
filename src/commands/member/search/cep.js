@@ -16,7 +16,7 @@ module.exports = {
 
     if (!cep || ![8, 9].includes(cep.length)) {
       throw new InvalidParameterError(
-        "Você precisa enviar um CEP no formato 00000-000 ou 00000000!"
+        "¡Necesitas enviar un CEP en el formato 00000-000 o 00000000!"
       );
     }
 
@@ -24,18 +24,18 @@ module.exports = {
       const data = await consultarCep(cep);
 
       if (!data.cep) {
-        await sendWarningReply("CEP não encontrado!");
+        await sendWarningReply("¡CEP no encontrado!");
         return;
       }
 
       await sendSuccessReply(`*Resultado*
         
 *CEP*: ${data.cep}
-*Logradouro*: ${data.logradouro}
+*Calle*: ${data.logradouro}
 *Complemento*: ${data.complemento}
-*Bairro*: ${data.bairro}
-*Localidade*: ${data.localidade}
-*UF*: ${data.uf}
+*Barrio*: ${data.bairro}
+*Localidad*: ${data.localidade}
+*Estado*: ${data.uf}
 *IBGE*: ${data.ibge}`);
     } catch (error) {
       console.log(error);

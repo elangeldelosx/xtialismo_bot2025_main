@@ -3,14 +3,14 @@ const { errorLog } = require(`${BASE_DIR}/utils/logger`);
 
 module.exports = {
   name: "fechar",
-  description: "Fecha o grupo.",
+  description: "Cierra XTIALISMO.",
   commands: [
     "fechar",
     "fecha",
-    "fechar-grupo",
-    "fecha-grupo",
+    "fechar-xtialismo",
+    "fecha-xtialismo",
     "close",
-    "close-group",
+    "close-xtialismo",
   ],
   usage: `${PREFIX}fechar`,
   /**
@@ -20,13 +20,13 @@ module.exports = {
   handle: async ({ socket, remoteJid, sendSuccessReply, sendErrorReply }) => {
     try {
       await socket.groupSettingUpdate(remoteJid, "announcement");
-      await sendSuccessReply("Grupo fechado com sucesso!");
+      await sendSuccessReply("XTIALISMO cerrado.");
     } catch (error) {
       await sendErrorReply(
-        "Para fechar o grupo, eu preciso ser administrador dele!"
+        "Para cerrar XTIALISMO, se requiere que sea administrador de este XTIALISMO."
       );
       errorLog(
-        `Ocorreu um erro ao fechar o grupo! Causa: ${JSON.stringify(
+        `Ocurrió un error al cerrar XTIALISMO. Causa: ${JSON.stringify(
           error,
           null,
           2

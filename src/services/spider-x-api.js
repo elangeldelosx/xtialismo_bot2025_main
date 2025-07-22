@@ -1,37 +1,28 @@
-/**
- * Funções de comunicação
- * com a API do Spider X.
- *
- * @author Dev Gui
- */
 const axios = require("axios");
 
 const { SPIDER_API_TOKEN, SPIDER_API_BASE_URL } = require("../config");
 
-/**
- * Não configure o token da Spider X API aqui, configure em: src/config.js
- */
 const spiderAPITokenConfigured =
   SPIDER_API_TOKEN && SPIDER_API_TOKEN !== "seu_token_aqui";
 
-const messageIfTokenNotConfigured = `Token da API do Spider X não configurado!
+const messageIfTokenNotConfigured = `¡Token de la API de Spider X no configurado!
       
-Para configurar, entre na pasta: \`src\` 
-e edite o arquivo \`config.js\`:
+Para configurar, entra en la carpeta: \`src\` 
+y edita el archivo \`config.js\`:
 
-Procure por:
+Busca:
 
 \`exports.SPIDER_API_TOKEN = "seu_token_aqui";\`
 
-Para obter o seu token, 
-crie uma conta em: https://api.spiderx.com.br
-e contrate um plano!`;
+Para obtener tu token, 
+crea una cuenta en: https://api.spiderx.com.br
+¡y contrata un plan!`;
 
 exports.spiderAPITokenConfigured = spiderAPITokenConfigured;
 
 exports.play = async (type, search) => {
   if (!search) {
-    throw new Error("Você precisa informar o que deseja buscar!");
+    throw new Error("¡Necesitas informar qué deseas buscar!");
   }
 
   if (!spiderAPITokenConfigured) {
@@ -50,7 +41,7 @@ exports.play = async (type, search) => {
 exports.download = async (type, url) => {
   if (!url) {
     throw new Error(
-      "Você precisa informar uma URL do YouTube do que deseja buscar!"
+      "¡Necesitas informar una URL de YouTube de lo que deseas buscar!"
     );
   }
 
@@ -69,7 +60,7 @@ exports.download = async (type, url) => {
 
 exports.gemini = async (text) => {
   if (!text) {
-    throw new Error("Você precisa informar o parâmetro de texto!");
+    throw new Error("¡Necesitas informar el parámetro de texto!");
   }
 
   if (!spiderAPITokenConfigured) {
@@ -88,7 +79,7 @@ exports.gemini = async (text) => {
 
 exports.attp = async (text) => {
   if (!text) {
-    throw new Error("Você precisa informar o parâmetro de texto!");
+    throw new Error("¡Necesitas informar el parámetro de texto!");
   }
 
   if (!spiderAPITokenConfigured) {
@@ -102,7 +93,7 @@ exports.attp = async (text) => {
 
 exports.ttp = async (text) => {
   if (!text) {
-    throw new Error("Você precisa informar o parâmetro de texto!");
+    throw new Error("¡Necesitas informar el parámetro de texto!");
   }
 
   if (!spiderAPITokenConfigured) {
@@ -116,7 +107,7 @@ exports.ttp = async (text) => {
 
 exports.search = async (type, search) => {
   if (!search) {
-    throw new Error("Você precisa informar o parâmetro de pesquisa!");
+    throw new Error("¡Necesitas informar el parámetro de búsqueda!");
   }
 
   if (!spiderAPITokenConfigured) {
@@ -135,7 +126,7 @@ exports.search = async (type, search) => {
 exports.welcome = (title, description, imageURL) => {
   if (!title || !description || !imageURL) {
     throw new Error(
-      "Você precisa informar o título, descrição e URL da imagem!"
+      "¡Necesitas informar el título, la descripción y la URL de la imagen!"
     );
   }
 
@@ -153,7 +144,7 @@ exports.welcome = (title, description, imageURL) => {
 exports.exit = (title, description, imageURL) => {
   if (!title || !description || !imageURL) {
     throw new Error(
-      "Você precisa informar o título, descrição e URL da imagem!"
+      "¡Necesitas informar el título, la descripción y la URL de la imagen!"
     );
   }
 
@@ -170,7 +161,7 @@ exports.exit = (title, description, imageURL) => {
 
 exports.imageAI = async (type, description) => {
   if (!description) {
-    throw new Error("Você precisa informar a descrição da imagem!");
+    throw new Error("¡Necesitas informar la descripción de la imagen!");
   }
 
   if (!spiderAPITokenConfigured) {
@@ -190,7 +181,7 @@ exports.imageAI = async (type, description) => {
 
 exports.canvas = (type, imageURL) => {
   if (!imageURL) {
-    throw new Error("Você precisa informar a URL da imagem!");
+    throw new Error("¡Necesitas informar la URL de la imagen!");
   }
 
   if (!spiderAPITokenConfigured) {

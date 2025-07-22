@@ -6,7 +6,7 @@ const { InvalidParameterError } = require(`${BASE_DIR}/errors`);
 
 module.exports = {
   name: "set-menu-image",
-  description: "Altera a imagem do menu do bot",
+  description: "Cambia la imagen del menú del bot.",
   commands: [
     "set-menu-image",
     "set-image",
@@ -15,7 +15,7 @@ module.exports = {
     "set-menu-imagem",
     "set-menu-img",
   ],
-  usage: `${PREFIX}set-menu-image (responda a uma imagem)`,
+  usage: `${PREFIX}set-menu-image (responde a una imagen)`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -30,17 +30,17 @@ module.exports = {
   }) => {
     if (!isReply || !isImage) {
       throw new InvalidParameterError(
-        "Você precisa responder a uma mensagem que contenha uma imagem!"
+        "¡Necesitas responder a un mensaje que contenga una imagen!"
       );
     }
 
     try {
-      const menuImagePath = path.join(ASSETS_DIR, "images", "takeshi-bot.png");
+      const menuImagePath = path.join(ASSETS_DIR, "images", "xtialismo-bot2025.png");
 
       let backupPath = "";
 
       if (fs.existsSync(menuImagePath)) {
-        backupPath = path.join(ASSETS_DIR, "images", "takeshi-bot-backup.png");
+        backupPath = path.join(ASSETS_DIR, "images", "xtialismo-bot2025-backup.png");
 
         fs.copyFileSync(menuImagePath, backupPath);
       }
@@ -53,11 +53,11 @@ module.exports = {
 
       fs.renameSync(tempPath, menuImagePath);
 
-      await sendSuccessReply("Imagem do menu atulizada com sucesso !");
+      await sendSuccessReply("¡Imagen del menú actualizada con éxito!");
     } catch (error) {
-      errorLog(`Erro ao alterar imagem do menu:  ${error}`);
+      errorLog(`Error al cambiar la imagen del menú: ${error}`);
       await sendErrorReply(
-        "Ocorreu um erro ao tentar alterar a imagem do menu. Por favor, tente novamente."
+        "Ocurrió un error al intentar cambiar la imagen del menú. Por favor, intenta de nuevo."
       );
     }
   },

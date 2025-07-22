@@ -1,14 +1,14 @@
 [
     {
-        "match": "Oi",
-        "answer": "Olá, tudo bem?"
+        "match": "Hola",
+        "answer": "Un saludo ocasional..."
     },
     {
-        "match": "Tudo bem",
-        "answer": "Estou bem, obrigado por perguntar"
+        "match": "Como estás",
+        "answer": "Haciendo Tasa de Implante (XTI)"
     },
     {
-        "match": "Qual seu nome",
-        "answer": "Meu nome é Takeshi Bot"
+        "match": "Quién eres",
+        "answer": "Soy xtialismo_bot2025, creado por El Angel de Los X."
     }
 ]

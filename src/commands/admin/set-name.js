@@ -5,9 +5,9 @@ const { WarningError } = require(`${BASE_DIR}/errors`);
 
 module.exports = {
   name: "set-name",
-  description: "Altera o nome do grupo e salva o nome antigo",
+  description: "Altera el nombre de XTIALISMO y guarda el nombre anterior.",
   commands: ["set-name", "set-group-name", "mudar-nome-grupo", "nome-grupo"],
-  usage: `${PREFIX}set-name novo nome do grupo`,
+  usage: `${PREFIX}set-name nuevo nombre de XTIALISMO`,
   /**
    * @param {CommandHandleProps} props
    * @returns {Promise<void>}
@@ -22,12 +22,12 @@ module.exports = {
     isGroup,
   }) => {
     if (!isGroup) {
-      throw new WarningError("Esse comando só pode ser usado em grupos.");
+      throw new WarningError("Este comando solo puede ser utilizado en XTIALISMO.");
     }
 
     if (!fullArgs) {
       throw new InvalidParameterError(
-        "Você precisa fornecer um novo nome para o grupo!"
+        "Se requiere proporcionar un nuevo nombre para XTIALISMO."
       );
     }
 
@@ -36,12 +36,12 @@ module.exports = {
 
     if (fullArgs.length < minLength || fullArgs.length > maxLength) {
       throw new InvalidParameterError(
-        `O nome do grupo deve ter entre ${minLength} e ${maxLength} caracteres!`
+        `El nombre de XTIALISMO debe tener entre ${minLength} y ${maxLength} caracteres.`
       );
     }
 
     try {
-      await sendWaitReply("Alterando o nome do grupo...");
+      await sendWaitReply("Alterando el nombre de XTIALISMO...");
 
       const groupMetadata = await socket.groupMetadata(remoteJid);
       const oldName = groupMetadata.subject;
@@ -49,12 +49,12 @@ module.exports = {
       await socket.groupUpdateSubject(remoteJid, fullArgs);
 
       await sendSuccessReply(
-        `Nome do grupo alterado com sucesso!\n\n*Antigo*: ${oldName}\n\n*Novo*: ${fullArgs}`
+        `Nombre de XTIALISMO alterado.\n\n*Anterior*: ${oldName}\n\n*Nuevo*: ${fullArgs}`
       );
     } catch (error) {
-      errorLog("Error ao alterar o nome do grupo:", error);
+      errorLog("Error al alterar el nombre de XTIALISMO:", error);
       await sendErrorReply(
-        "Falha ao alterar o nome do grupo. Verifique se tenho permissão de administrador."
+        "Fallo al alterar el nombre de XTIALISMO. Verifique si se poseen permisos de administrador."
       );
     }
   },

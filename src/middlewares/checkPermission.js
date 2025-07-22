@@ -1,9 +1,3 @@
-/**
- * Interceptadores de validação
- * de permissões de usuários.
- *
- * @author Dev Gui
- */
 const { OWNER_NUMBER, OWNER_LID } = require("../config");
 const { compareUserJidWithOtherNumber } = require("../utils");
 

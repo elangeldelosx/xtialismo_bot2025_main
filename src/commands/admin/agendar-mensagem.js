@@ -1,28 +1,19 @@
-/**
- * Desenvolvido por: Mkg
- * Refatorado por: Dev Gui
- *
- * @author Dev Gui
- */
 const { PREFIX } = require(`${BASE_DIR}/config`);
+const { WarningError } = require(`${BASE_DIR}/errors`); // Asegúrate de importar WarningError
 
 module.exports = {
   name: "agendar-mensagem",
-  description: "Agenda uma mensagem para ser enviada após um tempo definido.",
+  description: "Agenda un mensaje para ser enviado después de un tiempo definido.",
   commands: ["agendar", "agendar-mensagem"],
-  usage: `${PREFIX}agendar-mensagem mensagem / tempo
-  
-Exemplo: ${PREFIX}agendar-mensagem Reunião amanhã / 10m`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
+  usage: `${PREFIX}agendar-mensagem mensaje / tiempo
+ 
+Ejemplo: ${PREFIX}agendar-mensagem Reunión mañana / 10m`,
   handle: async ({ args, sendErrorReply, sendSuccessReply, sendText }) => {
     if (args.length !== 2) {
       return await sendErrorReply(
-        `Formato incorreto. Use: ${PREFIX}agendar-mensagem mensagem / tempo
+        `Formato incorrecto. Usa: ${PREFIX}agendar-mensagem mensaje / tiempo
         
-Exemplo: ${PREFIX}agendar-mensagem Reunião amanhã / 10m`
+Ejemplo: ${PREFIX}agendar-mensagem Reunión mañana / 10m`
       );
     }
 
@@ -40,21 +31,21 @@ Exemplo: ${PREFIX}agendar-mensagem Reunião amanhã / 10m`
       timeInMs = parseInt(rawTime) * 60 * 60 * 1000;
     } else {
       return await sendErrorReply(
-        `Formato de tempo inválido.
-Use:\n• 10s para 10 segundos\n• 5m para 5 minutos\n• 2h para 2 horas`
+        `Formato de tiempo inválido.
+Usa:\n• 10s para 10 segundos\n• 5m para 5 minutos\n• 2h para 2 horas`
       );
     }
 
     if (!message || message.trim() === "" || isNaN(timeInMs) || timeInMs <= 0) {
       return await sendErrorReply(
-        "Mensagem inválida ou tempo não especificado corretamente."
+        "Mensaje inválido o tiempo no especificado correctamente."
       );
     }
 
-    await sendSuccessReply(`⌚ Mensagem agendada para daqui a ${rawTime}...`);
+    await sendSuccessReply(`Mensaje agendado para dentro de ${rawTime}...`);
 
     setTimeout(async () => {
-      await sendText(`⏰ *Mensagem agendada:*\n\n${message}`);
+      await sendText(`*Mensaje agendado:*\n\n${message}`);
     }, timeInMs);
   },
 };

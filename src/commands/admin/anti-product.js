@@ -4,27 +4,23 @@ const {
 
 const { isActiveGroupRestriction } = require(`${BASE_DIR}/utils/database`);
 
-const { WarningError } = require(`${BASE_DIR}/errors`);
+const { WarningError, InvalidParameterError } = require(`${BASE_DIR}/errors`);
 const { PREFIX } = require(`${BASE_DIR}/config`);
 
 module.exports = {
   name: "anti-product",
   description:
-    "Ativa/desativa o recurso de anti-product no grupo, apagando a mensagem de produto se estiver ativo.",
-  commands: ["anti-product", "anti-produto", "anti-produtos"],
+    "Activa/desactiva la función de anti-producto en XTIALISMO, eliminando el mensaje de producto si está activo.",
+  commands: ["anti-product", "anti-produto", "anti-productos"],
   usage: `${PREFIX}anti-product (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   * @returns {Promise<void>}
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando só deve ser usado em grupos!");
+      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
     }
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -33,7 +29,7 @@ module.exports = {
 
     if (!antiProductOn && !antiProductOff) {
       throw new InvalidParameterError(
-        "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
+        "Necesitas escribir 1 o 0 (activar o desactivar)."
       );
     }
 
@@ -45,16 +41,16 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `O recurso de anti-product já está ${
-          antiProductOn ? "ativado" : "desativado"
-        }!`
+        `La función de anti-producto ya está ${
+          antiProductOn ? "activa" : "desactivada"
+        }.`
       );
     }
 
     updateIsActiveGroupRestriction(remoteJid, "anti-product", antiProductOn);
 
-    const status = antiProductOn ? "ativado" : "desativado";
+    const status = antiProductOn ? "activa" : "desactivada";
 
-    await sendSuccessReply(`Anti-product ${status} com sucesso!`);
+    await sendSuccessReply(`Anti-producto ${status}.`);
   },
 };

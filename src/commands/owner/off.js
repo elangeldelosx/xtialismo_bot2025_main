@@ -3,7 +3,7 @@ const { deactivateGroup } = require(`${BASE_DIR}/utils/database`);
 
 module.exports = {
   name: "off",
-  description: "Desativa o bot no grupo",
+  description: "Desactiva el bot en el grupo.",
   commands: ["off"],
   usage: `${PREFIX}off`,
   /**
@@ -12,11 +12,11 @@ module.exports = {
    */
   handle: async ({ sendSuccessReply, remoteJid, isGroup }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando deve ser usado dentro de um grupo.");
+      throw new WarningError("Este comando debe ser usado dentro de un grupo.");
     }
 
     deactivateGroup(remoteJid);
 
-    await sendSuccessReply("Bot desativado no grupo!");
+    await sendSuccessReply("¡Bot desactivado en el grupo!");
   },
 };
