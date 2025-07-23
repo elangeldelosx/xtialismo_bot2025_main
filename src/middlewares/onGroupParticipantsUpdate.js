@@ -57,7 +57,7 @@ exports.onGroupParticipantsUpdate = async ({
 
           if (!link) {
             throw new Error(
-              "¡No pude subir la imagen, intenta de nuevo más tarde!"
+              "No pude subir la imagen..."
             );
           }
 
@@ -119,11 +119,11 @@ exports.onGroupParticipantsUpdate = async ({
 
           if (!link) {
             throw new Error(
-              "¡No pude subir la imagen, intenta de nuevo más tarde!"
+              "No pude subir la imagen..."
             );
           }
 
-          const url = exit("miembro", "Fuiste un buen miembro", link);
+          const url = exit("miembro", "Un miembro cualquiera...", link);
 
           await socket.sendMessage(remoteJid, {
             image: { url },

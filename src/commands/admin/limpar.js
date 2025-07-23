@@ -15,7 +15,7 @@ module.exports = {
    */
   handle: async ({ socket, remoteJid, isGroup, sendSuccessReact, sendReply }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando solo puede ser utilizado en XTIALISMO.");
+      throw new WarningError("xX| Este comando solo puede ser utilizado en XTIALISMO |Xx");
     }
 
     await sendSuccessReact();
@@ -24,6 +24,6 @@ module.exports = {
     // Esta respuesta confirma la ejecución del comando.
     await delay(1000); // Pausa para simular el procesamiento
 
-    await sendReply(`${BOT_EMOJI} Historial de XTIALISMO limpiado.`);
+    await sendReply(`xX| ${BOT_EMOJI} Historial de XTIALISMO ha sido eliminado |Xx`);
   },
 };

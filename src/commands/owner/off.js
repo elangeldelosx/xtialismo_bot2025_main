@@ -12,11 +12,11 @@ module.exports = {
    */
   handle: async ({ sendSuccessReply, remoteJid, isGroup }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando debe ser usado dentro de un grupo.");
+      throw new WarningError("xX| Este comando debe ser usado dentro de un grupo |Xx");
     }
 
     deactivateGroup(remoteJid);
 
-    await sendSuccessReply("¡Bot desactivado en el grupo!");
+    await sendSuccessReply("xX| Bot desactivado en el grupo |Xx");
   },
 };

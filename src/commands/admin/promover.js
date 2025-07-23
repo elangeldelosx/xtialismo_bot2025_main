@@ -22,22 +22,22 @@ module.exports = {
     isGroup // Asegurarse de que isGroup esté disponible en props
   }) => {
     if (!isGroup(remoteJid)) {
-      throw new WarningError("Este comando solo puede ser utilizado en XTIALISMO.");
+      throw new WarningError("xX| Este comando solo puede ser utilizado en XTIALISMO |Xx");
     }
 
     if (!args.length || !args[0]) {
-      throw new InvalidParameterError("Por favor, marque un usuario para promover.");
+      throw new InvalidParameterError("xX| Por favor, marque un usuario para promover |Xx");
     }
 
     const userId = args[0].replace("@", "") + "@s.whatsapp.net";
 
     try {
       await socket.groupParticipantsUpdate(remoteJid, [userId], "promote");
-      await sendSuccessReply("Usuario promovido.");
+      await sendSuccessReply("xX| Usuario ha dejado de ser normal |Xx");
     } catch (error) {
       errorLog(`Error al promover usuario: ${error.message}`);
       await sendErrorReply(
-        "Ocurrió un error al intentar promover al usuario. Se requiere ser administrador de XTIALISMO para promover a otros usuarios."
+        "xX| Ocurrió un error al intentar promover al usuario. Se requiere ser administrador de XTIALISMO para promover a otros usuarios |Xx"
       );
     }
   },

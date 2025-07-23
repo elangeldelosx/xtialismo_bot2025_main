@@ -13,7 +13,7 @@ module.exports = {
   handle: async ({ deleteMessage, webMessage, remoteJid }) => {
     if (!webMessage?.message?.extendedTextMessage?.contextInfo) {
       throw new InvalidParameterError(
-        "Se debe mencionar un mensaje para eliminar."
+        "xX| Se debe mencionar un mensaje para eliminar |Xx"
       );
     }
 
@@ -22,7 +22,7 @@ module.exports = {
 
     if (!stanzaId || !participant) {
       throw new InvalidParameterError(
-        "Se debe mencionar un mensaje para eliminar."
+        "xX| Se debe mencionar un mensaje para eliminar |Xx"
       );
     }
 

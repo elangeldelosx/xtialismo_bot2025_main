@@ -15,12 +15,12 @@ module.exports = {
   usage: `${PREFIX}anti-audio (1/0)`,
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
+      throw new WarningError("xX Este comando solo debe ser usado en XTIALISMO Xx");
     }
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Necesitas escribir 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -29,7 +29,7 @@ module.exports = {
 
     if (!antiAudioOn && !antiAudioOff) {
       throw new InvalidParameterError(
-        "Necesitas escribir 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -41,9 +41,9 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `La función de anti-audio ya está ${
-          antiAudioOn ? "activa" : "desactivada"
-        }.`
+        `xX| La función de anti-audio ya está ${
+          antiAudioOn ? "activa" : "desactivada" 
+        } |Xx`
       );
     }
 

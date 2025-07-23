@@ -20,7 +20,7 @@ module.exports = {
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Necesitas escribir 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -29,7 +29,7 @@ module.exports = {
 
     if (!antiProductOn && !antiProductOff) {
       throw new InvalidParameterError(
-        "Necesitas escribir 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -41,9 +41,9 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `La función de anti-producto ya está ${
+        `xX| La función de anti-producto ya está ${
           antiProductOn ? "activa" : "desactivada"
-        }.`
+        } |Xx`
       );
     }
 

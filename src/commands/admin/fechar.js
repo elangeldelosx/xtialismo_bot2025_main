@@ -20,10 +20,10 @@ module.exports = {
   handle: async ({ socket, remoteJid, sendSuccessReply, sendErrorReply }) => {
     try {
       await socket.groupSettingUpdate(remoteJid, "announcement");
-      await sendSuccessReply("XTIALISMO cerrado.");
+      await sendSuccessReply("xX| XTIALISMO cerrado |Xx");
     } catch (error) {
       await sendErrorReply(
-        "Para cerrar XTIALISMO, se requiere que sea administrador de este XTIALISMO."
+        "xX| Para cerrar XTIALISMO, se requiere que sea administrador de este XTIALISMO |Xx"
       );
       errorLog(
         `Ocurrió un error al cerrar XTIALISMO. Causa: ${JSON.stringify(

@@ -35,12 +35,12 @@ module.exports = {
     isGroup,
   }) => {
     if (!isGroup) {
-      throw new DangerError("Este comando solo puede ser utilizado en XTIALISMO.");
+      throw new DangerError("xX| Este comando solo puede ser utilizado en XTIALISMO |Xx");
     }
 
     if (!args.length && !replyJid) {
       throw new DangerError(
-        `Se requiere mencionar a un usuario o responder al mensaje del usuario que se desea silenciar.\n\nEjemplo: ${PREFIX}mute @fulano`
+        `xX| Se requiere mencionar al usuario que hay que silenciar.\n\nEjemplo: ${PREFIX}mute @retobo |Xx`
       );
     }
 
@@ -51,7 +51,7 @@ module.exports = {
       : onlyNumbers(replyJid);
 
     if ([OWNER_NUMBER, OWNER_LID].includes(targetUserNumber)) {
-      throw new DangerError("No es posible silenciar al propietario de XTIALISMO.");
+      throw new DangerError("xX| No es posible silenciar al propietario de XTIALISMO |Xx");
     }
 
     const targetUserJid = isGroupWithLid
@@ -59,7 +59,7 @@ module.exports = {
       : toUserJid(targetUserNumber);
 
     if (targetUserJid === toUserJid(BOT_NUMBER)) {
-      throw new DangerError("No es posible silenciar al bot.");
+      throw new DangerError("xX| No es posible silenciar al bot |Xx");
     }
 
     const [result] =
@@ -68,7 +68,7 @@ module.exports = {
         : await socket.onWhatsApp(targetUserNumber);
 
     if (result.jid === userJid) {
-      throw new DangerError("No es posible silenciar a sí mismo.");
+      throw new DangerError("xX| No es posible silenciar a sí mismo |Xx");
     }
 
     const groupMetadata = await getGroupMetadata();
@@ -79,7 +79,7 @@ module.exports = {
 
     if (!isUserInGroup) {
       return sendErrorReply(
-        `El usuario @${targetUserNumber} no se encuentra en XTIALISMO.`,
+        `xX| El usuario @${targetUserNumber} no se encuentra en XTIALISMO |Xx`,
         [targetUserJid]
       );
     }
@@ -89,12 +89,12 @@ module.exports = {
     );
 
     if (isTargetAdmin) {
-      throw new DangerError("No es posible silenciar a un administrador.");
+      throw new DangerError("xX| Imposible silenciar a un administrador, así de injusta es tu amarga vida |Xx");
     }
 
     if (checkIfMemberIsMuted(remoteJid, targetUserJid)) {
       return sendErrorReply(
-        `El usuario @${targetUserNumber} ya se encuentra silenciado en XTIALISMO.`,
+        `xX| El usuario @${targetUserNumber} ya se encuentra silenciado en XTIALISMO |Xx`,
         [targetUserJid]
       );
     }
@@ -102,7 +102,7 @@ module.exports = {
     muteMember(remoteJid, targetUserJid);
 
     await sendSuccessReply(
-      `@${targetUserNumber} ha sido silenciado en XTIALISMO.`,
+      `xX| @${targetUserNumber} ha sido silenciado en XTIALISMO |Xx`,
       [targetUserJid]
     );
   },

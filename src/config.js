@@ -2,7 +2,7 @@ const path = require("path");
 
 exports.PREFIX = "/";
 
-exports.BOT_EMOJI = "❌";
+exports.BOT_EMOJI = "...";
 
 exports.BOT_NAME = "xtialismo_bot2025";
 

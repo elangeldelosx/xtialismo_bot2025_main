@@ -6,15 +6,14 @@ exports.menuMessage = () => {
   const date = new Date();
 
   return `
-╔═════《 X T I A L I S M O _ B O T 2 0 2 5 》═════╗
-║                                                ║
-║  ✦  B I E N V E N I D O
+╔═══《 X T I A L I S M O _ B O T 2 0 2 5 》
+║                                          
 ║  ───────────────────────────────
-║  ✖  Nombre del Bot: ${BOT_NAME}
-║  ✖  Fecha: ${date.toLocaleDateString("es-es")}
-║  ✖  Hora: ${date.toLocaleTimeString("es-es")}
-║  ✖  Prefijo: ${PREFIX}
-║  ✖  Version: ${packageInfo.version}
+║  ✖  ${BOT_NAME}
+║  ✖  ${date.toLocaleDateString("es-es")}
+║  ✖  ${date.toLocaleTimeString("es-es")}
+║  ✖  ${PREFIX}
+║  ✖  ${packageInfo.version}
 ║
 ║  ✦  C R E A D O R
 ║  ───────────────────────────────
@@ -52,7 +51,7 @@ exports.menuMessage = () => {
 ║  ✖  ${PREFIX}unmute
 ║  ✖  ${PREFIX}welcome (1/0)
 ║
-║  ✦  P R I N C I P A L
+║  ✦  U S U A R I O S
 ║  ───────────────────────────────
 ║  ✖  ${PREFIX}attp
 ║  ✖  ${PREFIX}cep
@@ -97,6 +96,6 @@ exports.menuMessage = () => {
 ║  ✖  ${PREFIX}pixel
 ║  ✖  ${PREFIX}rip
 ║
-╚═════════════════════════════════════════════════════╝${readMore()}
+╚═════════════════════════════════════╝${readMore()}
 `;
 };

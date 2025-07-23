@@ -20,7 +20,7 @@ module.exports = {
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Necesitas escribir 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -29,7 +29,7 @@ module.exports = {
 
     if (!antiDocumentOn && !antiDocumentOff) {
       throw new InvalidParameterError(
-        "Necesitas escribir 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -41,9 +41,9 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `La función de anti-documento ya está ${
+        `xX| La función de anti-documento ya está ${
           antiDocumentOn ? "activa" : "desactivada"
-        }.`
+        }. |Xx`
       );
     }
 

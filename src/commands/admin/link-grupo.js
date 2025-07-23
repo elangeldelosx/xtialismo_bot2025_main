@@ -25,23 +25,22 @@ module.exports = {
     isGroup // Asegúrate de que isGroup esté disponible en props
   }) => {
     if (!isGroup) {
-      throw new InvalidParameterError("Este comando solo debe ser utilizado en XTIALISMO.");
+      throw new InvalidParameterError("xX| Este comando solo debe ser utilizado en XTIALISMO |Xx");
     }
 
     try {
       const groupCode = await socket.groupInviteCode(remoteJid);
 
       if (!groupCode) {
-        throw new DangerError("Se requiere ser administrador de XTIALISMO.");
+        throw new DangerError("xX| Se requiere ser administrador de XTIALISMO |Xx");
       }
 
-      const groupInviteLink = `https://chat.whatsapp.com/${groupCode}`;
+      const groupInviteLink = `xX| https://chat.whatsapp.com/${groupCode} |Xx`;
 
-      await sendReact("❌");
       await sendReply(groupInviteLink);
     } catch (error) {
       errorLog(error);
-      await sendErrorReply("Se requiere ser administrador de XTIALISMO.");
+      await sendErrorReply("xX| Se requiere ser administrador de XTIALISMO |Xx");
     }
   },
 };

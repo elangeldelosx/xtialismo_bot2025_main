@@ -31,12 +31,12 @@ module.exports = {
     socket,
   }) => {
     if (!isGroup) {
-      throw new DangerError("Este comando solo puede ser utilizado en XTIALISMO.");
+      throw new DangerError("xX| Este comando solo puede ser utilizado en XTIALISMO |Xx");
     }
 
     if (!args.length) {
       throw new DangerError(
-        `Se requiere mencionar a un usuario para desactivar el silencio.\n\nEjemplo: ${PREFIX}unmute @fulano`
+        `xX| Se requiere mencionar a un usuario para desactivar el silencio.\n\nEjemplo: ${PREFIX}unmute @fulano |Xx`
       );
     }
 
@@ -49,11 +49,11 @@ module.exports = {
     }
 
     if (!checkIfMemberIsMuted(remoteJid, targetUserJid)) {
-      throw new WarningError("Este usuario no está silenciado.");
+      throw new WarningError("xX| Este usuario no está silenciado |Xx");
     }
 
     unmuteMember(remoteJid, targetUserJid);
 
-    await sendSuccessReply("Silencio de usuario desactivado.");
+    await sendSuccessReply("xX| Silencio de usuario desactivado |Xx");
   },
 };

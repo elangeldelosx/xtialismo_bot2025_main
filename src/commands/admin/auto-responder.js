@@ -18,7 +18,7 @@ module.exports = {
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Necesitas escribir 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -27,7 +27,7 @@ module.exports = {
 
     if (!autoResponderOn && !autoResponderOff) {
       throw new InvalidParameterError(
-        "Necesitas escribir 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -36,9 +36,9 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `La función de auto-responder ya está ${
+        `xX| La función de auto-responder ya está ${
           autoResponderOn ? "activa" : "desactivada"
-        }.`
+        } |Xx`
       );
     }
 

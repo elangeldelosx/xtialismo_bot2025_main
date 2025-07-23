@@ -26,12 +26,12 @@ module.exports = {
    */
   handle: async ({ args, sendReply, sendSuccessReact, remoteJid, isGroup }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando solo puede ser utilizado en XTIALISMO.");
+      throw new WarningError("xX| Este comando solo puede ser utilizado en XTIALISMO |Xx");
     }
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Se requiere ingresar 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -40,7 +40,7 @@ module.exports = {
 
     if (!welcomeOn && !welcomeOff) {
       throw new InvalidParameterError(
-        "Se requiere ingresar 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -49,9 +49,9 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `La función de bienvenida ya se encuentra ${
+        `xX| La función de primer encuentro ya se encuentra ${
           welcomeOn ? "activa" : "desactivada"
-        }.`
+        } |Xx`
       );
     }
 
@@ -65,6 +65,6 @@ module.exports = {
 
     const context = welcomeOn ? "activa" : "desactivada";
 
-    await sendReply(`Función de bienvenida ${context}.`);
+    await sendReply(`xX| Función de primer encuentro ${context} |Xx`);
   },
 };

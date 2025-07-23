@@ -3,7 +3,7 @@ const { errorLog } = require(`${BASE_DIR}/utils/logger`);
 
 module.exports = {
   name: "abrir",
-  description: "Abre XTIALISMO.",
+  description: "xX Abre XTIALISMO Xx",
   commands: [
     "abrir",
     "abri",
@@ -18,10 +18,10 @@ module.exports = {
   handle: async ({ socket, remoteJid, sendSuccessReply, sendErrorReply }) => {
     try {
       await socket.groupSettingUpdate(remoteJid, "not_announcement");
-      await sendSuccessReply("XTIALISMO abierto.");
+      await sendSuccessReply("xX| XTIALISMO abierto |Xx");
     } catch (error) {
       await sendErrorReply(
-        "Para abrir XTIALISMO, necesito ser administrador de este XTIALISMO."
+        "xX| Para abrir XTIALISMO hay que ser administrador |Xx"
       );
       errorLog(
         `Error al abrir XTIALISMO. Causa: ${JSON.stringify(

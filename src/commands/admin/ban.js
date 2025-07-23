@@ -45,17 +45,17 @@ ${PREFIX}ban (mencionando un mensaje)`,
     }
 
     if (memberToRemoveJid === userJid) {
-      throw new DangerError("No es posible remover a sí mismo.");
+      throw new DangerError("xX| No es posible remover a sí mismo |Xx");
     }
 
     if (memberToRemoveNumber === OWNER_NUMBER) {
-      throw new DangerError("No es posible remover al propietario de XTIALISMO.");
+      throw new DangerError("xX| No es posible remover al propietario de XTIALISMO |Xx");
     }
 
     const botJid = toUserJid(BOT_NUMBER);
 
     if (memberToRemoveJid === botJid) {
-      throw new DangerError("No es posible remover al bot.");
+      throw new DangerError("xX| No es posible remover al bot |Xx");
     }
 
     await socket.groupParticipantsUpdate(
@@ -66,6 +66,6 @@ ${PREFIX}ban (mencionando un mensaje)`,
 
     await sendSuccessReact();
 
-    await sendReply("E L I M I N A D O");
+    await sendReply("XxxxXxXxXXxx ||| E L I M I N A D O ||| XxxXXXxXXxxxX");
   },
 };

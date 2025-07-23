@@ -30,7 +30,7 @@ module.exports = {
   }) => {
     if (!isReply || !isImage) {
       throw new InvalidParameterError(
-        "¡Necesitas responder a un mensaje que contenga una imagen!"
+        "xX| Necesita algo que contenga una imagen |Xx"
       );
     }
 
@@ -53,11 +53,11 @@ module.exports = {
 
       fs.renameSync(tempPath, menuImagePath);
 
-      await sendSuccessReply("¡Imagen del menú actualizada con éxito!");
+      await sendSuccessReply("xX| Imagen actualizada con éxito |Xx");
     } catch (error) {
       errorLog(`Error al cambiar la imagen del menú: ${error}`);
       await sendErrorReply(
-        "Ocurrió un error al intentar cambiar la imagen del menú. Por favor, intenta de nuevo."
+        "xX| Ocurrió un error al intentar cambiar la imagen del menú. Por favor, intenta de nuevo |Xx"
       );
     }
   },

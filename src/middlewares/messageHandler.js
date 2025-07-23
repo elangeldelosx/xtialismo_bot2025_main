@@ -59,7 +59,7 @@ exports.messageHandler = async (socket, webMessage) => {
     });
   } catch (error) {
     errorLog(
-      `Error al procesar mensaje restringido. ¡Verifica si soy administrador del grupo! Detalles: ${error.message}`
+      `Error al procesar mensaje restringido. Detalles: ${error.message}`
     );
   }
 };

@@ -27,7 +27,7 @@ module.exports = {
   }) => {
     if (!isImage && !isVideo) {
       throw new InvalidParameterError(
-        "Se requiere marcar una imagen/video o responder a una imagen/video para revelarla."
+        "xX| Se requiere marcar una imagen/video o responder a una imagen/video para revelarla |Xx"
       );
     }
 
@@ -82,7 +82,7 @@ module.exports = {
       }
     } catch (error) {
       console.error("Error general:", error);
-      throw new Error("Ocurrió un error al procesar el contenido. Intente nuevamente.");
+      throw new Error("xX| Ocurrió un error al procesar el contenido. Intente nuevamente |Xx");
     } finally {
       const cleanFile = (filePath) => {
         if (filePath && fs.existsSync(filePath)) {

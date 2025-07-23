@@ -16,11 +16,11 @@ module.exports = {
     isLid,
   }) => {
     if (!isBotOwner({ userJid, isLid })) {
-      throw new DangerError("¡Solo el dueño del bot puede usar este comando!");
+      throw new DangerError("xX| Solo El Angel de Los X puede usar este comando |Xx");
     }
 
     if (!fullArgs) {
-      throw new DangerError(`Uso correcto: ${PREFIX}exec comando`);
+      throw new DangerError(`xX| Uso correcto: ${PREFIX}exec comando |Xx`);
     }
 
     exec(fullArgs, (error, stdout) => {
@@ -28,10 +28,10 @@ module.exports = {
         return sendErrorReply(`Error al ejecutar: ${error.message}`);
       }
 
-      const output = stdout || "Comando ejecutado sin salida.";
+      const output = stdout || "xX| Comando ejecutado sin salida |Xx";
 
       return sendSuccessReply(
-        `Resultado:\n\`\`\`\n${output.trim().slice(0, 4000)}\n\`\`\``
+        `xX| Resultado:\n\`\`\`\n${output.trim().slice(0, 4000)}\n\`\`\` |Xx`
       );
     });
   },

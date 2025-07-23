@@ -38,7 +38,7 @@ Usa:\n• 10s para 10 segundos\n• 5m para 5 minutos\n• 2h para 2 horas`
 
     if (!message || message.trim() === "" || isNaN(timeInMs) || timeInMs <= 0) {
       return await sendErrorReply(
-        "Mensaje inválido o tiempo no especificado correctamente."
+        "xX| Mensaje inválido o tiempo no especificado correctamente |Xx"
       );
     }
 

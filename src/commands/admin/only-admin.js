@@ -30,12 +30,12 @@ module.exports = {
    */
   handle: async ({ args, sendReply, sendSuccessReact, remoteJid, isGroup }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando solo debe ser utilizado en XTIALISMO.");
+      throw new WarningError("xX| Este comando solo debe ser utilizado en XTIALISMO |Xx");
     }
 
     if (!args.length) {
       throw new InvalidParameterError(
-        "Se requiere ingresar 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -44,7 +44,7 @@ module.exports = {
 
     if (!onlyAdminOn && !onlyAdminOff) {
       throw new InvalidParameterError(
-        "Se requiere ingresar 1 o 0 (activar o desactivar)."
+        "¿(1,0)?"
       );
     }
 
@@ -53,9 +53,9 @@ module.exports = {
 
     if (hasActive || hasInactive) {
       throw new WarningError(
-        `La función de que solo los administradores utilicen mis comandos ya se encuentra ${
+        `xX| La función de que solo los administradores utilicen mis comandos ya se encuentra ${
           onlyAdminOn ? "activa" : "desactivada"
-        }.`
+        } |Xx`
       );
     }
 
@@ -70,7 +70,7 @@ module.exports = {
     const context = onlyAdminOn ? "activa" : "desactivada";
 
     await sendReply(
-      `Función de que solo los administradores utilicen los comandos ${context}.`
+      `xX| Función de que solo los administradores utilicen los comandos ${context} |Xx`
     );
   },
 };

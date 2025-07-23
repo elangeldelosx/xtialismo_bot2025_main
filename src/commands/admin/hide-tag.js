@@ -11,15 +11,13 @@ module.exports = {
    */
   handle: async ({ fullArgs, sendText, socket, remoteJid, sendReact, isGroup }) => {
     if (!isGroup) {
-      throw new InvalidParameterError("Este comando solo debe ser utilizado en XTIALISMO.");
+      throw new InvalidParameterError("xX| Este comando solo debe ser utilizado en XTIALISMO |Xx");
     }
 
     const { participants } = await socket.groupMetadata(remoteJid);
 
     const mentions = participants.map(({ id }) => id);
 
-    await sendReact("❌");
-
-    await sendText(`❌ Etiquetando a todos los miembros de XTIALISMO:\n\n${fullArgs}`, mentions); // Cambiado de 📢 a ❌
+    await sendText(`xX| LLAMADO GENERAL de XTIALISMO |Xx \n\n${fullArgs}`, mentions);
   },
 };

@@ -22,12 +22,12 @@ module.exports = {
     isGroup,
   }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando solo puede ser utilizado en XTIALISMO.");
+      throw new WarningError("xX| Este comando solo puede ser utilizado en XTIALISMO |Xx");
     }
 
     if (!fullArgs) {
       throw new InvalidParameterError(
-        "Se requiere proporcionar un nuevo nombre para XTIALISMO."
+        "xX| Se requiere proporcionar un nuevo nombre para XTIALISMO |Xx"
       );
     }
 
@@ -36,7 +36,7 @@ module.exports = {
 
     if (fullArgs.length < minLength || fullArgs.length > maxLength) {
       throw new InvalidParameterError(
-        `El nombre de XTIALISMO debe tener entre ${minLength} y ${maxLength} caracteres.`
+        `xX| El nombre de XTIALISMO debe tener entre ${minLength} y ${maxLength} caracteres |Xx`
       );
     }
 
@@ -49,12 +49,12 @@ module.exports = {
       await socket.groupUpdateSubject(remoteJid, fullArgs);
 
       await sendSuccessReply(
-        `Nombre de XTIALISMO alterado.\n\n*Anterior*: ${oldName}\n\n*Nuevo*: ${fullArgs}`
+        `xX| Nombre de XTIALISMO alterado.\n\n*Anterior*: ${oldName}\n\n*Nuevo*: ${fullArgs} |Xx`
       );
     } catch (error) {
       errorLog("Error al alterar el nombre de XTIALISMO:", error);
       await sendErrorReply(
-        "Fallo al alterar el nombre de XTIALISMO. Verifique si se poseen permisos de administrador."
+        "xX| Fallo al alterar el nombre de XTIALISMO. Verifique si se poseen permisos de administrador |Xx"
       );
     }
   },

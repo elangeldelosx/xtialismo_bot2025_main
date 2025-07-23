@@ -8,9 +8,9 @@ module.exports = {
   usage: `${PREFIX}get-id`,
   handle: async ({ remoteJid, sendSuccessReply, isGroup }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando debe ser usado dentro de un grupo.");
+      throw new WarningError("xX| Este comando debe ser usado dentro de un grupo |Xx");
     }
 
-    await sendSuccessReply(`*ID del grupo*: ${remoteJid}`);
+    await sendSuccessReply(`xX| ID de XTIALISMO: ${remoteJid} |Xx`);
   },
 };
