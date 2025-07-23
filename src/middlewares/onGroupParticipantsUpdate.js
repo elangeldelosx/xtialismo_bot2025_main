@@ -57,13 +57,13 @@ exports.onGroupParticipantsUpdate = async ({
 
           if (!link) {
             throw new Error(
-              "No pude subir la imagen..."
+              "xX| No es posible subir la imagen... |Xx"
             );
           }
 
           const url = welcome(
             "participante",
-            "¡Eres el miembro más nuevo del grupo!",
+            "xX| Miembro más novato de XTIALISMO |Xx",
             link
           );
 
@@ -119,7 +119,7 @@ exports.onGroupParticipantsUpdate = async ({
 
           if (!link) {
             throw new Error(
-              "No pude subir la imagen..."
+              "xX| No pude subir la imagen... |Xx"
             );
           }
 

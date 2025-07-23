@@ -23,7 +23,7 @@ exports.menuMessage = () => {
 ║  ✖  ${PREFIX}on
 ║  ✖  ${PREFIX}set-menu-image
 ║
-║  ✦  A D M I N S
+║  ✦  B A S E   D E   M A N D O
 ║  ───────────────────────────────
 ║  ✖  ${PREFIX}abrir
 ║  ✖  ${PREFIX}agendar-mensagem
@@ -51,51 +51,21 @@ exports.menuMessage = () => {
 ║  ✖  ${PREFIX}unmute
 ║  ✖  ${PREFIX}welcome (1/0)
 ║
-║  ✦  U S U A R I O S
+║  ✦  U S U A R I O S   X
 ║  ───────────────────────────────
-║  ✖  ${PREFIX}attp
-║  ✖  ${PREFIX}cep
-║  ✖  ${PREFIX}exemplos-de-mensagens
-║  ✖  ${PREFIX}fake-chat
-║  ✖  ${PREFIX}gerar-link
+║  ✖  ${PREFIX}los-x
+║  ✖  ${PREFIX}new-x-system
+║  ✖  ${PREFIX}xti
+║  ✖  ${PREFIX}xti-creator
+║  ✖  ${PREFIX}top-xti
+║  ✖  ${PREFIX}novato-xti
 ║  ✖  ${PREFIX}get-lid
-║  ✖  ${PREFIX}google-search
+║  ✖  ${PREFIX}menu
 ║  ✖  ${PREFIX}perfil
-║  ✖  ${PREFIX}ping
-║  ✖  ${PREFIX}raw-message
-║  ✖  ${PREFIX}rename
 ║  ✖  ${PREFIX}sticker
 ║  ✖  ${PREFIX}to-image
-║  ✖  ${PREFIX}ttp
-║  ✖  ${PREFIX}yt-search
 ║
-║  ✦  D E S C A R G A S
-║  ───────────────────────────────
-║  ✖  ${PREFIX}play-audio
-║  ✖  ${PREFIX}play-video
-║  ✖  ${PREFIX}tik-tok
-║  ✖  ${PREFIX}yt-mp3
-║  ✖  ${PREFIX}yt-mp4
 ║
-║  ✦  I A
-║  ───────────────────────────────
-║  ✖  ${PREFIX}gemini
-║  ✖  ${PREFIX}ia-sticker
-║  ✖  ${PREFIX}pixart
-║  ✖  ${PREFIX}stable-diffusion-turbo
-║
-║  ✦  C A N V A S
-║  ───────────────────────────────
-║  ✖  ${PREFIX}blur
-║  ✖  ${PREFIX}bolsonaro
-║  ✖  ${PREFIX}cadeia
-║  ✖  ${PREFIX}contraste
-║  ✖  ${PREFIX}espelhar
-║  ✖  ${PREFIX}gray
-║  ✖  ${PREFIX}inverter
-║  ✖  ${PREFIX}pixel
-║  ✖  ${PREFIX}rip
-║
-╚═════════════════════════════════════╝${readMore()}
+╚═══════════════════════════╝${readMore()}
 `;
 };

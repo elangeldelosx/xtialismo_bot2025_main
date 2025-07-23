@@ -145,19 +145,19 @@ exports.loadCommonFunctions = ({ socket, webMessage }) => {
   const sendWaitReply = async (text, mentions) => {
     await sendWaitReact();
     return await sendReply(
-      `⏳ ¡Espera! ${text || "Cargando datos..."}`,
+      `xX| ⏳ |Xx ${text || "xX| Cargando datos... |Xx"}`,
       mentions
     );
   };
 
   const sendWarningReply = async (text, mentions) => {
     await sendWarningReact();
-    return await sendReply(`⚠️ ¡Atención! ${text}`, mentions);
+    return await sendReply(`xX| No es posible en XTIALISMO... Permiso no brindado por El Angel de Los X |Xx`);
   };
 
   const sendErrorReply = async (text, mentions) => {
     await sendErrorReact();
-    return await sendReply(`❌ ¡Error! ${text}`, mentions);
+    return await sendReply(`xX| No es posible en XTIALISMO... Permiso no brindado por El Angel de Los X |Xx`);
   };
 
   const sendStickerFromFile = async (file, quoted = true) => {

@@ -51,6 +51,6 @@ module.exports = {
 
     const status = antiProductOn ? "activa" : "desactivada";
 
-    await sendSuccessReply(`Anti-producto ${status}.`);
+    await sendSuccessReply(`xX| Anti-producto ${status} |Xx`);
   },
 };

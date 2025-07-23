@@ -4,15 +4,15 @@ const axios = require("axios");
 exports.upload = async (imageBuffer, filename) => {
   try {
     if (!Buffer.isBuffer(imageBuffer)) {
-      throw new Error("¡El primer parámetro debe ser un Buffer válido!");
+      throw new Error("xX| Buffer inválido |Xx");
     }
 
     if (typeof filename !== "string" || filename.trim() === "") {
-      throw new Error("¡El segundo parámetro debe ser el nombre del archivo!");
+      throw new Error("xX| Nombre del archivo inválido |Xx");
     }
 
     if (imageBuffer.length === 0) {
-      throw new Error("¡El buffer de la imagen está vacío!");
+      throw new Error("xX| El buffer de la imagen está vacío |Xx");
     }
 
     const API_KEY = "6d207e02198a847aa98d0a2a901485a5";
@@ -55,7 +55,7 @@ exports.upload = async (imageBuffer, filename) => {
     } else if (error.request) {
       return {
         success: false,
-        error: "Error de red: No se pudo conectar con el servidor",
+        error: "xX| Error de red: No se pudo comunicar con El Angel de Los X |Xx",
       };
     } else {
       return {

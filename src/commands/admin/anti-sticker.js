@@ -51,6 +51,6 @@ module.exports = {
 
     const status = antiStickerOn ? "activa" : "desactivada";
 
-    await sendSuccessReply(`Anti-sticker ${status}.`);
+    await sendSuccessReply(`xX| Anti-sticker ${status} |Xx`);
   },
 };

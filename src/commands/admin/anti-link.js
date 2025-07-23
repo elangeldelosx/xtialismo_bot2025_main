@@ -14,7 +14,7 @@ module.exports = {
   usage: `${PREFIX}anti-link (1/0)`,
   handle: async ({ args, sendReply, sendSuccessReact, remoteJid, isGroup }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
+      throw new WarningError("xX| Este comando solo debe ser usado en XTIALISMO |Xx");
     }
 
     if (!args.length) {
@@ -53,6 +53,6 @@ module.exports = {
 
     const context = antiLinkOn ? "activada" : "desactivada";
 
-    await sendReply(`Función de anti-enlace ${context}.`);
+    await sendReply(`xX| Anti-enlace ${context} |Xx`);
   },
 };

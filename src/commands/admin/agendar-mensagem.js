@@ -11,9 +11,9 @@ Ejemplo: ${PREFIX}agendar-mensagem Reunión mañana / 10m`,
   handle: async ({ args, sendErrorReply, sendSuccessReply, sendText }) => {
     if (args.length !== 2) {
       return await sendErrorReply(
-        `Formato incorrecto. Usa: ${PREFIX}agendar-mensagem mensaje / tiempo
+        `xX| Formato incorrecto. Es: ${PREFIX}agendar-mensagem mensaje / tiempo
         
-Ejemplo: ${PREFIX}agendar-mensagem Reunión mañana / 10m`
+Ejemplo: ${PREFIX}agendar-mensagem Reunión mañana / 10m |Xx`
       );
     }
 
@@ -31,7 +31,7 @@ Ejemplo: ${PREFIX}agendar-mensagem Reunión mañana / 10m`
       timeInMs = parseInt(rawTime) * 60 * 60 * 1000;
     } else {
       return await sendErrorReply(
-        `Formato de tiempo inválido.
+        `xX| Formato de tiempo inválido |Xx
 Usa:\n• 10s para 10 segundos\n• 5m para 5 minutos\n• 2h para 2 horas`
       );
     }
@@ -42,10 +42,10 @@ Usa:\n• 10s para 10 segundos\n• 5m para 5 minutos\n• 2h para 2 horas`
       );
     }
 
-    await sendSuccessReply(`Mensaje agendado para dentro de ${rawTime}...`);
+    await sendSuccessReply(`xX| Mensaje agendado para dentro de ${rawTime}... |Xx`);
 
     setTimeout(async () => {
-      await sendText(`*Mensaje agendado:*\n\n${message}`);
+      await sendText(`xX| Mensaje agendado:*\n\n${message} |Xx`);
     }, timeInMs);
   },
 };

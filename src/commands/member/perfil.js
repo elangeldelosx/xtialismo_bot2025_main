@@ -27,7 +27,7 @@ module.exports = {
   }) => {
     if (!isGroup(remoteJid)) {
       throw new InvalidParameterError(
-        "Este comando solo puede ser usado en grupo."
+        "xX| Este comando solo puede ser usado en grupo |Xx"
       );
     }
 
@@ -35,13 +35,13 @@ module.exports = {
       ? args[0].replace(/[@ ]/g, "") + "@s.whatsapp.net"
       : userJid;
 
-    await sendWaitReply("Cargando perfil...");
+    await sendWaitReply("xX| Cargando perfil... Permiso brindando por El Angel de Los X... Desencriptando... |Xx");
 
     let profilePicPath = null; // Para almacenar la ruta temporal de la imagen de perfil
 
     try {
       let userName;
-      let userRole = "Miembro";
+      let userRole = "Miembro de XTIALISMO";
 
       const { profileImage, success } = await getProfileImageData(socket, targetJid);
       profilePicPath = profileImage; // Guarda la ruta temporal o la ruta de la imagen por defecto
@@ -50,7 +50,7 @@ module.exports = {
         const contactInfo = await socket.onWhatsApp(targetJid);
         userName = contactInfo[0]?.name || contactInfo[0]?.verifiedName || targetJid.split("@")[0];
       } catch (error) {
-        errorLog(`Error al obtener nombre de usuario para ${targetJid}: ${error.message}`);
+        errorLog(`xX| Error al obtener nombre de usuario para ${targetJid}: ${error.message} |Xx`);
         userName = targetJid.split("@")[0]; // Fallback a JID si no se puede obtener el nombre
       }
 
@@ -61,9 +61,9 @@ module.exports = {
       );
 
       if (participant?.admin) {
-        userRole = "Administrador";
+        userRole = "Administrador de XTIALISMO";
       } else if (groupMetadata.owner === targetJid) {
-        userRole = "Propietario del Grupo";
+        userRole = "El Angel de Los X, mi creador.";
       }
 
       // Generar datos "inventados"
@@ -77,7 +77,7 @@ module.exports = {
 
 
       const mensaje = `
-Usuario de XTIALISMO: ${userName}
+Usuario: ${userName}
 JID: ${targetJid}
 Rol: ${userRole}
 
@@ -100,7 +100,7 @@ Dirección IP: ${ipAddress}
 
     } catch (error) {
       console.error(error);
-      sendErrorReply("Ocurrió un error al intentar verificar el perfil.");
+      sendErrorReply("xX| Ocurrió un error al intentar verificar el perfil |Xx");
     } finally {
       // Limpiar el archivo de imagen temporal si no es la imagen por defecto
       if (profilePicPath && !profilePicPath.includes("default-user.png") && fs.existsSync(profilePicPath)) {

@@ -1,0 +1,56 @@
+const { createClient } = require('@supabase/supabase-js');
+const { PREFIX } = require(`${BASE_DIR}/config`);
+
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://qmsjsxtkjkhesbeefixa.supabase.co';
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtc2pzeHRramtoZXNiZWVmaXhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk3MzMwNDksImV4cCI6MjA2NTMwOTA0OX0.tugE79enW2vo5v0zgocHNvwgpsLtqXyehfXlX3AFaio';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+module.exports = {
+  name: "new-x-system",
+  description: "Busca la descripción de cuándo un X se unió al sistema de Los X (ALL THE WORLD).",
+  commands: ["new-x-system"],
+  usage: `${PREFIX}new-x-system <nombre_del_X>`,
+  /**
+   * @param {CommandHandleProps} props
+   * @returns {Promise<void>}
+   */
+  handle: async ({ fullArgs, sendText, remoteJid, isGroup }) => {
+    if (!fullArgs) {
+      await sendText(remoteJid, `xX| el nombre del X no se proporcionó: ${PREFIX}new-x-system <nombre_del_X> |Xx`);
+      return;
+    }
+
+    const userNameToSearch = fullArgs.trim();
+
+    try {
+      const { data, error } = await supabase
+        .from('user_register_x')
+        .select('nombre_user_x, descripcion_user_x')
+        .eq('nombre_user_x', userNameToSearch);
+
+      if (error) {
+        console.error("Error al consultar datos para los detalles del X:", error);
+        await sendText(remoteJid, `xX| Error al consultar los detalles del X: ${error.message} |Xx`);
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        await sendText(remoteJid, `xX| No se encontró el X '${userNameToSearch}' |Xx`);
+        return;
+      }
+
+      const xData = data[0];
+      const nombreUserX = xData.nombre_user_x;
+      const descripcionUserX = xData.descripcion_user_x;
+
+      const responseMessage = `xX| ${descripcionUserX} |Xx`;
+
+      await sendText(remoteJid, responseMessage);
+
+    } catch (e) {
+      console.error("Ocurrió un error inesperado al procesar el comando new-x-system:", e);
+      await sendText(remoteJid, `xX| Ocurrió un error inesperado al consultar los detalles del X: ${e.message} |Xx`);
+    }
+  },
+};

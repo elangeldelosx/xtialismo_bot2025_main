@@ -59,7 +59,7 @@ exports.messageHandler = async (socket, webMessage) => {
     });
   } catch (error) {
     errorLog(
-      `Error al procesar mensaje restringido. Detalles: ${error.message}`
+      `xX| Error al procesar mensaje restringido. Detalles: ${error.message} |Xx`
     );
   }
 };

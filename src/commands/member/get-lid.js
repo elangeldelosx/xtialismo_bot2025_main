@@ -14,7 +14,7 @@ module.exports = {
   handle: async ({ args, sendSuccessReply, socket }) => {
     if (!args.length) {
       throw new InvalidParameterError(
-        "¡Debes mencionar a alguien o informar un contacto!"
+        "xX| No mencionó a algun usuario de XTIALISMO |Xx"
       );
     }
 
@@ -22,13 +22,13 @@ module.exports = {
 
     if (!result) {
       throw new WarningError(
-        "¡El número informado no está registrado en WhatsApp!"
+        "xX| El número informado no está registrado en WhatsApp |Xx"
       );
     }
 
     const jid = result?.jid;
     const lid = result?.lid;
 
-    await sendSuccessReply(`JID: ${jid}${lid ? `\nLID: ${lid}` : ""}`);
+    await sendSuccessReply(`xX| JID: ${jid}${lid ? `\nLID: ${lid}` : ""} |Xx`);
   },
 };

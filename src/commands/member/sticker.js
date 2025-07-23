@@ -110,7 +110,7 @@ module.exports = {
             fs.unlinkSync(inputPath);
           }
           return sendErrorReply(
-            `¡El video enviado tiene más de ${maxDuration} segundos! Envía un video más corto.`
+            `xX| El video enviado tiene más de ${maxDuration} segundos, mal ahí |Xx`
           );
         }
 

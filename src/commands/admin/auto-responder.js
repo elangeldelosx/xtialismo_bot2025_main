@@ -13,7 +13,7 @@ module.exports = {
   usage: `${PREFIX}auto-responder (1/0)`,
   handle: async ({ args, sendReply, sendSuccessReact, remoteJid, isGroup }) => {
     if (!isGroup) {
-      throw new WarningError("Este comando solo debe ser usado en XTIALISMO.");
+      throw new WarningError("xX| Este comando solo debe ser usado en XTIALISMO |Xx");
     }
 
     if (!args.length) {
@@ -52,6 +52,6 @@ module.exports = {
 
     const context = autoResponderOn ? "activa" : "desactivada";
 
-    await sendReply(`Función de auto-responder ${context}.`);
+    await sendReply(`xX| Función de auto-responder ${context} |Xx`);
   },
 };

@@ -51,6 +51,6 @@ module.exports = {
 
     const status = antiEventOn ? "activa" : "desactivada";
 
-    await sendSuccessReply(`Anti-evento ${status}.`);
+    await sendSuccessReply(`xX| Anti-evento ${status} |Xx`);
   },
 };

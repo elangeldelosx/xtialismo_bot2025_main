@@ -7,7 +7,7 @@ const welcomeMessages = [
 ];
 
 const additionalInfoContent = `
-Aquí se hace Tasa de Implante (XTI) y Dinero.
+Aquí se hace Tasa de Implante (XTI).
 Se implanta un estilo de vida... no una religión, no una cultura... solo una Convicción.
 
 Enlaces:

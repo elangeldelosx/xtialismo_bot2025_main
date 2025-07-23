@@ -26,11 +26,11 @@ module.exports = {
         "xX| Para cerrar XTIALISMO, se requiere que sea administrador de este XTIALISMO |Xx"
       );
       errorLog(
-        `Ocurrió un error al cerrar XTIALISMO. Causa: ${JSON.stringify(
+        `xX| Ocurrió un error al cerrar XTIALISMO. Causa: ${JSON.stringify(
           error,
           null,
           2
-        )}`
+        )} |Xx`
       );
     }
   },
