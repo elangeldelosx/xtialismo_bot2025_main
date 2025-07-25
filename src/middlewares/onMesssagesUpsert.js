@@ -1,8 +1,8 @@
 const {
-  isAtLeastMinutesInPast,
-  GROUP_PARTICIPANT_ADD,
-  GROUP_PARTICIPANT_LEAVE,
-  isAddOrLeave,
+  isAtLeastMinutesInPast,
+  GROUP_PARTICIPANT_ADD,
+  GROUP_PARTICIPANT_LEAVE,
+  isAddOrLeave,
 } = require("../utils");
 const { DEVELOPER_MODE } = require("../config");
 const { dynamicCommand } = require("../utils/dynamicCommand");
@@ -14,85 +14,94 @@ const { checkIfMemberIsMuted } = require("../utils/database");
 const { messageHandler } = require("./messageHandler");
 
 exports.onMessagesUpsert = async ({ socket, messages, startProcess }) => {
-  if (!messages.length) {
-    return;
-  }
+  if (!messages.length) {
+    return;
+  }
 
-  for (const webMessage of messages) {
-    if (DEVELOPER_MODE) {
-      infoLog(
-        `\n\n⪨========== [ xX| RECIBIDO |Xx ] ==========⪩ \n\n${JSON.stringify(
-          messages,
-          null,
-          2
-        )}`
-      );
-    }
+  for (const webMessage of messages) {
+    if (DEVELOPER_MODE) {
+      infoLog(
+        `\n\n⪨========== [ xX| RECIBIDO |Xx ] ==========⪩ \n\n${JSON.stringify(
+          webMessage,
+          null,
+          2
+        )}`
+      );
+    }
 
-    try {
-      const timestamp = webMessage.messageTimestamp;
+    try {
+      const timestamp = webMessage.messageTimestamp;
 
-      if (webMessage?.message) {
-        messageHandler(socket, webMessage);
-      }
+      if (webMessage.message && 'poll' in webMessage.message) {
+        const pollMessage = webMessage.message.poll;
+        if (pollMessage && !Array.isArray(pollMessage.values)) {
+          errorLog(`[ERROR DE MENSAJE] Mensaje de encuesta entrante malformado: 'poll.values' no es un array. Saltando procesamiento de este mensaje.`);
+          errorLog(`Mensaje problemático (completo): ${JSON.stringify(webMessage.message)}`);
+          continue;
+        }
+      }
 
-      if (isAtLeastMinutesInPast(timestamp)) {
-        continue;
-      }
+      if (webMessage?.message) {
+        messageHandler(socket, webMessage);
+      }
 
-      if (isAddOrLeave.includes(webMessage.messageStubType)) {
-        let action = "";
-        if (webMessage.messageStubType === GROUP_PARTICIPANT_ADD) {
-          action = "add";
-        } else if (webMessage.messageStubType === GROUP_PARTICIPANT_LEAVE) {
-          action = "remove";
-        }
+      if (isAtLeastMinutesInPast(timestamp)) {
+        continue;
+      }
 
-        await onGroupParticipantsUpdate({
-          userJid: webMessage.messageStubParameters[0],
-          remoteJid: webMessage.key.remoteJid,
-          socket,
-          action,
-        });
-      } else {
-        const commonFunctions = loadCommonFunctions({ socket, webMessage });
+      if (isAddOrLeave.includes(webMessage.messageStubType)) {
+        let action = "";
+        if (webMessage.messageStubType === GROUP_PARTICIPANT_ADD) {
+          action = "add";
+        } else if (webMessage.messageStubType === GROUP_PARTICIPANT_LEAVE) {
+          action = "remove";
+        }
 
-        if (!commonFunctions) {
-          continue;
-        }
+        await onGroupParticipantsUpdate({
+          userJid: webMessage.messageStubParameters[0],
+          remoteJid: webMessage.key.remoteJid,
+          socket,
+          action,
+        });
+      } else {
+        const commonFunctions = loadCommonFunctions({ socket, webMessage });
 
-        if (
-          checkIfMemberIsMuted(
-            commonFunctions.remoteJid,
-            commonFunctions.userJid
-          )
-        ) {
-          try {
-            await commonFunctions.deleteMessage(webMessage.key);
-          } catch (error) {
-            errorLog(
-              `Error al eliminar mensaje de miembro silenciado ${error.message}`
-            );
-          }
+        if (!commonFunctions) {
+          continue;
+        }
 
-          return;
-        }
+        if (
+          checkIfMemberIsMuted(
+            commonFunctions.remoteJid,
+            commonFunctions.userJid
+          )
+        ) {
+          try {
+            await commonFunctions.deleteMessage(webMessage.key);
+          } catch (error) {
+            errorLog(
+              `Error al eliminar mensaje de miembro silenciado ${error.message}`
+            );
+          }
 
-        await dynamicCommand(commonFunctions, startProcess);
-      }
-    } catch (error) {
-      if (badMacHandler.handleError(error, "message-processing")) {
-        continue;
-      }
+          return;
+        }
 
-      if (badMacHandler.isSessionError(error)) {
-        errorLog(`Error de sesión al procesar mensaje: ${error.message}`);
-        continue;
-      }
+        await dynamicCommand(commonFunctions, startProcess);
+      }
+    } catch (error) {
+      if (badMacHandler.handleError(error, "message-processing")) {
+        continue;
+      }
 
-      errorLog(`Error al procesar mensaje: ${error.message}`);
+      if (badMacHandler.isSessionError(error)) {
+        errorLog(`Error de sesión al procesar mensaje: ${error.message}`);
+        continue;
+      }
 
-      continue;
-    }
-  }
+      errorLog(`Error al procesar mensaje: ${error.message}`);
+
+      continue;
+    }
+  }
 };

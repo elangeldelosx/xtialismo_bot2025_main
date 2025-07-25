@@ -41,7 +41,6 @@ exports.menuMessage = () => {
 ║  ✖  ${PREFIX}exit (1/0)
 ║  ✖  ${PREFIX}fechar
 ║  ✖  ${PREFIX}hidetag
-║  ✖  ${PREFIX}limpar
 ║  ✖  ${PREFIX}link-grupo
 ║  ✖  ${PREFIX}mute
 ║  ✖  ${PREFIX}only-admin (1/0)
@@ -54,17 +53,11 @@ exports.menuMessage = () => {
 ║  ✦  U S U A R I O S   X
 ║  ───────────────────────────────
 ║  ✖  ${PREFIX}los-x
-║  ✖  ${PREFIX}new-x-system
-║  ✖  ${PREFIX}xti
-║  ✖  ${PREFIX}xti-creator
-║  ✖  ${PREFIX}top-xti
-║  ✖  ${PREFIX}novato-xti
-║  ✖  ${PREFIX}get-lid
-║  ✖  ${PREFIX}menu
-║  ✖  ${PREFIX}perfil
-║  ✖  ${PREFIX}sticker
-║  ✖  ${PREFIX}to-image
-║
+║  ✖  ${PREFIX}get-lid-x
+║  ✖  ${PREFIX}menu-x
+║  ✖  ${PREFIX}perfil-x
+║  ✖  ${PREFIX}sticker-x
+║  ✖  ${PREFIX}to-image-x
 ║
 ╚═══════════════════════════╝${readMore()}
 `;

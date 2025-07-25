@@ -1,11 +1,3 @@
-/**
- * Este script es responsable
- * de cargar los eventos
- * que serán escuchados por
- * el socket de WhatsApp.
- *
- * @author El Angel de Los X
- */
 const { TIMEOUT_IN_MILLISECONDS_BY_EVENT } = require("./config");
 const { onMessagesUpsert } = require("./middlewares/onMesssagesUpsert");
 const path = require("node:path");
@@ -32,18 +24,16 @@ exports.load = (socket) => {
 
   socket.ev.on("messages.upsert", async (data) => {
     const startProcess = Date.now();
-    setTimeout(() => {
-      safeEventHandler(
-        () =>
-          onMessagesUpsert({
-            socket,
-            messages: data.messages,
-            startProcess,
-          }),
-        data,
-        "messages.upsert"
-      );
-    }, TIMEOUT_IN_MILLISECONDS_BY_EVENT);
+    safeEventHandler(
+      () =>
+        onMessagesUpsert({
+          socket,
+          messages: data.messages,
+          startProcess,
+        }),
+      data,
+      "messages.upsert"
+    );
   });
 
   process.on("uncaughtException", (error) => {
